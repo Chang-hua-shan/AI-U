@@ -4,7 +4,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
-  initTabs();
   initShareModal();
   initContactForm();
 });
@@ -55,49 +54,7 @@ function initTheme() {
   }
 }
 
-/* ==========================================================================
-   2. 品牌服務頁籤切換 (Dynamic Brand Showcase Tabs)
-   ========================================================================== */
-function initTabs() {
-  const tabButtons = document.querySelectorAll('.tab-nav-item');
-  const tabPanels = document.querySelectorAll('.tab-panel');
-  const indicator = document.getElementById('tab-indicator');
-  
-  if (!tabButtons.length || !tabPanels.length || !indicator) return;
 
-  tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const targetPanelId = button.getAttribute('aria-controls');
-      const targetPanel = document.getElementById(targetPanelId);
-      
-      if (!targetPanel) return;
-
-      // 1. 更新頁籤按鈕狀態
-      tabButtons.forEach(btn => {
-        btn.classList.remove('active');
-        btn.setAttribute('aria-selected', 'false');
-      });
-      button.classList.add('active');
-      button.setAttribute('aria-selected', 'true');
-
-      // 2. 移動滑動底線/背景 (Sliding Indicator)
-      indicator.className = 'tab-indicator'; // 重設基礎樣式
-      if (button.id === 'tab-bpa') {
-        indicator.classList.add('pos-bpa');
-      } else if (button.id === 'tab-kyimc') {
-        indicator.classList.add('pos-kyimc');
-      } else if (button.id === 'tab-space') {
-        indicator.classList.add('pos-space');
-      }
-
-      // 3. 切換展示內容 (帶淡入動畫)
-      tabPanels.forEach(panel => {
-        panel.style.display = 'none';
-      });
-      targetPanel.style.display = 'block';
-    });
-  });
-}
 
 /* ==========================================================================
    3. 分享 QR Code 彈窗管理 (Dynamic QR Code Dialog)
