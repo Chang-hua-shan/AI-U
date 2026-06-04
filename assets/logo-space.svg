@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" width="100%" height="100%">
+  <defs>
+    <linearGradient id="space-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E91B62" />
+      <stop offset="100%" stop-color="#C2185B" />
+    </linearGradient>
+  </defs>
+  <!-- Architectural Icon representing "品" character -->
+  <g transform="translate(15, 12)">
+    <!-- Top Box -->
+    <rect x="18" y="0" width="20" height="20" rx="3" stroke="url(#space-grad)" stroke-width="3" fill="none" />
+    <line x1="28" y1="0" x2="28" y2="20" stroke="url(#space-grad)" stroke-width="2.5" />
+    
+    <!-- Bottom Left Box -->
+    <rect x="5" y="26" width="20" height="20" rx="3" stroke="url(#space-grad)" stroke-width="3" fill="none" />
+    
+    <!-- Bottom Right Box -->
+    <rect x="31" y="26" width="20" height="20" rx="3" stroke="url(#space-grad)" stroke-width="3" fill="none" />
+    
+    <!-- Connected architectural grid lines -->
+    <line x1="15" y1="20" x2="15" y2="26" stroke="#E91B62" stroke-width="1.5" opacity="0.6" />
+    <line x1="41" y1="20" x2="41" y2="26" stroke="#E91B62" stroke-width="1.5" opacity="0.6" />
+  </g>
+  
+  <!-- Vertical Divider -->
+  <line x1="90" y1="18" x2="90" y2="62" stroke="#E91B62" stroke-width="1.5" opacity="0.5" />
+  
+  <!-- Chinese Subtext -->
+  <g transform="translate(105, 0)">
+    <text x="0" y="38" font-family="'Inter', 'Noto Sans TC', sans-serif" font-weight="700" font-size="18" fill="url(#space-grad)" letter-spacing="4">品空間</text>
+    <text x="0" y="58" font-family="'Inter', 'Noto Sans TC', sans-serif" font-weight="400" font-size="10" fill="#E91B62" letter-spacing="1" opacity="0.8">空間規劃與商業美學</text>
+  </g>
+</svg>
