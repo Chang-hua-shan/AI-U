@@ -1,5 +1,5 @@
 /**
- * KYIMC 凱悅整合行銷 - 官方行銷首頁 互動邏輯
+ * AI+U - 官方行銷首頁 互動邏輯
  */
 
 document.addEventListener('DOMContentLoaded', () => {

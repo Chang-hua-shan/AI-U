@@ -19,7 +19,7 @@
   
   <!-- Chinese branding -->
   <g transform="translate(140, 0)">
-    <text x="0" y="38" font-family="'Inter', 'Noto Sans TC', sans-serif" font-weight="700" font-size="18" fill="url(#kyimc-grad)" letter-spacing="2">凱悅整合行銷</text>
-    <text x="0" y="58" font-family="'Inter', 'Noto Sans TC', sans-serif" font-weight="400" font-size="9.5" fill="#E91B62" letter-spacing="0.5" opacity="0.8">管理顧問有限公司 | Kyimc</text>
+    <text x="0" y="38" font-family="'Inter', 'Noto Sans TC', sans-serif" font-weight="700" font-size="20" fill="url(#kyimc-grad)" letter-spacing="1">AI+U</text>
+    <text x="0" y="58" font-family="'Inter', 'Noto Sans TC', sans-serif" font-weight="400" font-size="9.5" fill="#E91B62" letter-spacing="0.5" opacity="0.8">管理顧問有限公司 | AI+U</text>
   </g>
 </svg>
