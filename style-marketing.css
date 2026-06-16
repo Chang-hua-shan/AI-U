@@ -219,15 +219,15 @@ img {
 }
 
 .logo-img {
-  height: 36px;
+  height: 40px;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
 }
 
 .logo-text {
-  font-family: var(--font-chinese);
-  font-weight: 700;
-  font-size: 18px;
-  letter-spacing: 1.5px;
+  font-family: var(--font-english);
+  font-weight: 800;
+  font-size: 28px;
+  letter-spacing: 2px;
   color: var(--text-primary);
   background: linear-gradient(135deg, var(--text-primary) 30%, var(--primary-color) 100%);
   -webkit-background-clip: text;
