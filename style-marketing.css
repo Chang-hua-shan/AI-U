@@ -90,12 +90,16 @@ body.light-theme {
   -webkit-tap-highlight-color: transparent;
 }
 
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   font-family: var(--font-chinese);
   background: var(--bg-gradient, var(--bg-color));
   color: var(--text-primary);
   min-height: 100vh;
-  overflow-x: hidden;
   position: relative;
   transition: background var(--transition-normal), color var(--transition-normal);
   line-height: 1.6;
@@ -746,7 +750,8 @@ body.light-theme .card-image-overlay {
 }
 
 .card-mockup {
-  width: 330px;
+  width: 100%;
+  max-width: 330px;
   height: 480px;
   background: rgba(20, 20, 22, 0.82);
   border: 1px solid rgba(233, 27, 98, 0.4);
@@ -1510,7 +1515,8 @@ body.light-theme .form-select option {
     width: 100%;
   }
   .card-mockup {
-    width: 290px;
+    width: 100%;
+    max-width: 290px;
     height: 420px;
     padding: 20px;
   }
