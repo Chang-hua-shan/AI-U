@@ -2,9 +2,12 @@
  * AI+U - 官方行銷首頁 互動邏輯
  */
 
+let currentLang = 'zh';
+
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initTheme();
+  initLanguage();
   initScrollReveal();
   initCard3DTilt();
   initShareModal();
@@ -98,7 +101,71 @@ function initTheme() {
 }
 
 /* ==========================================================================
-   3. 網頁滾動進入動畫 (Scroll Reveal Animations)
+   3. 多國語言切換邏輯 (Language Switcher)
+   ========================================================================== */
+function initLanguage() {
+  const langSelect = document.getElementById('lang-select');
+  if (!langSelect) return;
+
+  // 讀取本地儲存語言，預設為繁中 'zh'
+  currentLang = localStorage.getItem('lang') || 'zh';
+  langSelect.value = currentLang;
+
+  // 初始套用語言翻譯
+  applyLanguage(currentLang);
+
+  // 監聽選單切換
+  langSelect.addEventListener('change', (e) => {
+    currentLang = e.target.value;
+    localStorage.setItem('lang', currentLang);
+    applyLanguage(currentLang);
+  });
+}
+
+function applyLanguage(lang) {
+  if (!translations[lang]) return;
+
+  // 1. 翻譯所有 data-i18n 的元素
+  const elements = document.querySelectorAll('[data-i18n]');
+  elements.forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang][key] !== undefined) {
+      const textValue = translations[lang][key];
+      // 如果翻譯中包含 HTML 標籤 (如 <br> 或 <span>)
+      if (textValue.includes('<')) {
+        el.innerHTML = textValue;
+      } else {
+        el.textContent = textValue;
+      }
+    }
+  });
+
+  // 2. 翻譯所有 data-i18n-placeholder 的輸入框/文字框
+  const inputs = document.querySelectorAll('[data-i18n-placeholder]');
+  inputs.forEach(input => {
+    const key = input.getAttribute('data-i18n-placeholder');
+    if (translations[lang][key] !== undefined) {
+      input.placeholder = translations[lang][key];
+    }
+  });
+
+  // 3. 更新網頁 document lang 屬性
+  let langAttr = 'zh-Hant-TW';
+  if (lang === 'en') langAttr = 'en';
+  if (lang === 'cn') langAttr = 'zh-Hans-CN';
+  if (lang === 'ja') langAttr = 'ja';
+  document.documentElement.lang = langAttr;
+}
+
+// 取得當前語言之特定欄位翻譯字串的輔助函數
+function getTranslation(key) {
+  return translations[currentLang] && translations[currentLang][key] !== undefined
+    ? translations[currentLang][key]
+    : (translations['zh'][key] || '');
+}
+
+/* ==========================================================================
+   4. 網頁滾動進入動畫 (Scroll Reveal Animations)
    ========================================================================== */
 function initScrollReveal() {
   const revealElements = document.querySelectorAll('[data-reveal]');
@@ -123,7 +190,7 @@ function initScrollReveal() {
 }
 
 /* ==========================================================================
-   4. 電子名片 Mockup 3D 傾斜效果 (3D Card Tilt Effect)
+   5. 電子名片 Mockup 3D 傾斜效果 (3D Card Tilt Effect)
    ========================================================================== */
 function initCard3DTilt() {
   const card = document.getElementById('digital-card-mockup');
@@ -171,7 +238,7 @@ function initCard3DTilt() {
 }
 
 /* ==========================================================================
-   5. QR Code 分享彈窗管理 (QR Code Dialog)
+   6. QR Code 分享彈窗管理 (QR Code Dialog)
    ========================================================================== */
 function initShareModal() {
   const showQrBtn = document.getElementById('btn-show-qr');
@@ -225,7 +292,7 @@ function initShareModal() {
 }
 
 /* ==========================================================================
-   6. 諮詢留言表單提交與 Toast 提示 (Simulated Consultation Submission)
+   7. 諮詢留言表單提交與 Toast 提示 (Simulated Consultation Submission)
    ========================================================================== */
 function initConsultationForm() {
   const form = document.getElementById('consultation-form');
@@ -244,16 +311,15 @@ function initConsultationForm() {
     const serviceInput = document.getElementById('form-service');
     const messageInput = document.getElementById('form-message');
 
-    // 簡易表單驗證
+    // 表單驗證，顯示對應語言的錯誤訊息
     if (!nameInput.value.trim() || !phoneInput.value.trim() || !emailInput.value.trim() || !serviceInput.value || !messageInput.value.trim()) {
-      showToast('請填寫所有欄位並選擇諮詢項目！', 'fa-solid fa-triangle-exclamation');
+      showToast(getTranslation('toast_validation'), 'fa-solid fa-triangle-exclamation');
       return;
     }
 
     // 進入傳送載入中狀態 (Simulating Loading State)
-    const originalBtnText = submitBtn.querySelector('.btn-submit-text').textContent;
     submitBtn.disabled = true;
-    submitBtn.querySelector('.btn-submit-text').textContent = '諮詢表單傳送中...';
+    submitBtn.querySelector('.btn-submit-text').textContent = getTranslation('btn_submit_loading');
     const submitIcon = submitBtn.querySelector('.submit-icon');
     if (submitIcon) {
       submitIcon.className = 'fa-solid fa-spinner fa-spin submit-icon';
@@ -263,7 +329,7 @@ function initConsultationForm() {
     setTimeout(() => {
       // 成功狀態還原
       submitBtn.disabled = false;
-      submitBtn.querySelector('.btn-submit-text').textContent = originalBtnText;
+      submitBtn.querySelector('.btn-submit-text').textContent = getTranslation('btn_submit_text');
       if (submitIcon) {
         submitIcon.className = 'fa-solid fa-paper-plane submit-icon';
       }
@@ -280,8 +346,8 @@ function initConsultationForm() {
       // 清空表單
       form.reset();
 
-      // 顯示高級 Toast 成功通知
-      showToast('您的諮詢表單已成功傳送！我們將儘快聯絡您。', 'fa-solid fa-circle-check');
+      // 顯示高級 Toast 成功通知，翻譯對應語系
+      showToast(getTranslation('toast_success'), 'fa-solid fa-circle-check');
     }, 1500);
   });
 

@@ -27,6 +27,9 @@
   
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style-marketing.css">
+  
+  <!-- Translations Dictionary -->
+  <script src="translations.js"></script>
 </head>
 <body class="light-theme">
 
@@ -43,12 +46,22 @@
         <span class="logo-text">AI+U</span>
       </a>
       <ul class="nav-menu" id="nav-menu">
-        <li><a href="#about" class="nav-link">關於我們</a></li>
-        <li><a href="#services" class="nav-link">品牌服務</a></li>
-        <li><a href="#connect" class="nav-link">團隊名片</a></li>
-        <li><a href="#booking" class="nav-link">合作預約</a></li>
+        <li><a href="#about" class="nav-link" data-i18n="nav_about">關於我們</a></li>
+        <li><a href="#services" class="nav-link" data-i18n="nav_services">品牌服務</a></li>
+        <li><a href="#connect" class="nav-link" data-i18n="nav_connect">團隊名片</a></li>
+        <li><a href="#booking" class="nav-link" data-i18n="nav_booking">合作預約</a></li>
       </ul>
       <div class="nav-actions">
+        <!-- Language Selector Dropdown -->
+        <div class="lang-selector">
+          <select id="lang-select" class="lang-select" aria-label="切換語言">
+            <option value="zh">繁中</option>
+            <option value="en">EN</option>
+            <option value="cn">简中</option>
+            <option value="ja">日本語</option>
+          </select>
+        </div>
+        
         <button class="icon-btn theme-toggle" id="theme-toggle-btn" aria-label="切換主題" title="切換主題">
           <i class="fa-solid fa-moon"></i>
         </button>
@@ -64,21 +77,21 @@
   <!-- Hero Section -->
   <header class="hero" id="hero">
     <div class="hero-content">
-      <span class="editorial-brand-label" data-reveal>KYIMC INTEGRATED MARKETING</span>
-      <h1 class="hero-title" data-reveal="delay-1">
+      <span class="editorial-brand-label" data-reveal data-i18n="editorial_brand_label">AI+U INTEGRATED MARKETING</span>
+      <h1 class="hero-title" data-reveal="delay-1" data-i18n="hero_title">
         定義品牌高度<br>
         <span class="gradient-text">啟發商業智慧</span>
       </h1>
-      <p class="hero-desc" data-reveal="delay-2">
+      <p class="hero-desc" data-reveal="delay-2" data-i18n="hero_desc">
         專業品牌行銷及管理顧問團隊。我們為企業量身打造最具影響力的行銷策略，串聯商務合作，並提供尊榮的實體品牌體驗場域，助力品牌實現跨越式成長與商業價值最大化。
       </p>
       <div class="hero-btns" data-reveal="delay-3">
         <a href="#services" class="btn btn-primary" id="hero-btn-primary">
-          <span class="btn-text">探索品牌服務</span>
+          <span class="btn-text" data-i18n="btn_explore_services">探索品牌服務</span>
           <i class="fa-solid fa-arrow-down btn-icon animate-bounce"></i>
         </a>
         <a href="#booking" class="btn btn-secondary" id="hero-btn-secondary">
-          <span class="btn-text">商務留言預約</span>
+          <span class="btn-text" data-i18n="btn_book_consultation">商務留言預約</span>
           <i class="fa-regular fa-paper-plane btn-icon"></i>
         </a>
       </div>
@@ -89,33 +102,33 @@
   <section class="about" id="about">
     <div class="section-container">
       <div class="section-title-wrapper" data-reveal>
-        <h2 class="section-title">關於 AI+U</h2>
+        <h2 class="section-title" data-i18n="about_section_title">關於 AI+U</h2>
         <div class="section-title-bar"></div>
       </div>
       
       <div class="about-grid">
         <div class="about-text-box" data-reveal="delay-1">
-          <p class="lead-paragraph">以專業洞察為核心，用整合思維成就卓越。</p>
-          <p class="text-content">
+          <p class="lead-paragraph" data-i18n="about_lead">以專業洞察為核心，用整合思維成就卓越。</p>
+          <p class="text-content" data-i18n="about_desc1">
             AI+U管理顧問有限公司致力於成為企業成長路上最信任的品牌策略夥伴。我們結合了深厚的公關活動企劃力、創意的數位行銷工具，以及廣闊的商業社群網絡，將品牌願景轉化為實質的市場效益。
           </p>
-          <p class="text-content">
-            透過旗下<b>「Kyimc整合行銷」</b>、商務平台<b>「BPA品商匯」</b>與實體會所<b>「品空間」</b>，我們建構了「策略診斷、資源對接、線下體驗」的三維商機生態系，提供一站式、高質感的商務解決方案。
+          <p class="text-content" data-i18n="about_desc2">
+            透過旗下「Kyimc整合行銷」、「BPA品商匯」與「品空間」，我們建構了「策略診斷、資源對接、線下體驗」的三維商機生態系，提供一站式、高質感的商務解決方案。
           </p>
         </div>
         
         <div class="about-stats-box" data-reveal="delay-2">
           <div class="stat-card">
             <h3 class="stat-number">10+</h3>
-            <p class="stat-label">年品牌顧問資歷</p>
+            <p class="stat-label" data-i18n="stat_years_desc">年品牌顧問資歷</p>
           </div>
           <div class="stat-card">
             <h3 class="stat-number">100+</h3>
-            <p class="stat-label">策劃與執行專案</p>
+            <p class="stat-label" data-i18n="stat_projects_desc">策劃與執行專案</p>
           </div>
           <div class="stat-card">
             <h3 class="stat-number">98%</h3>
-            <p class="stat-label">客戶滿意度推薦</p>
+            <p class="stat-label" data-i18n="stat_satisfaction_desc">客戶滿意度推薦</p>
           </div>
         </div>
       </div>
@@ -126,7 +139,7 @@
   <section class="services" id="services">
     <div class="section-container">
       <div class="section-title-wrapper" data-reveal>
-        <h2 class="section-title">品牌服務生態</h2>
+        <h2 class="section-title" data-i18n="services_section_title">品牌服務生態</h2>
         <div class="section-title-bar"></div>
       </div>
       
@@ -137,14 +150,14 @@
           <div class="brand-logo-container">
             <img src="assets/logo-kyimc.svg" alt="Kyimc Logo" class="brand-logo-img">
           </div>
-          <h3 class="service-name">AI+U</h3>
-          <p class="service-desc">
+          <h3 class="service-name" data-i18n="service1_name">AI+U</h3>
+          <p class="service-desc" data-i18n="service1_desc">
             全方位的品牌行銷及管理顧問服務。我們為企業提供精準的品牌定位與診斷、整合行銷策略規劃、公關活動策劃與專案諮詢，以多元傳播管道為企業提升市場知名度。
           </p>
           <ul class="brand-features-list">
-            <li><i class="fa-solid fa-circle-check feature-check"></i> <span>品牌定位診斷與再造規劃</span></li>
-            <li><i class="fa-solid fa-circle-check feature-check"></i> <span>整合公關傳播與媒體公關維護</span></li>
-            <li><i class="fa-solid fa-circle-check feature-check"></i> <span>大型商務活動、新品發布會統籌</span></li>
+            <li><i class="fa-solid fa-circle-check feature-check"></i> <span data-i18n="service1_feat1">品牌定位診斷與再造規劃</span></li>
+            <li><i class="fa-solid fa-circle-check feature-check"></i> <span data-i18n="service1_feat2">整合公關傳播與媒體公關維護</span></li>
+            <li><i class="fa-solid fa-circle-check feature-check"></i> <span data-i18n="service1_feat3">大型商務活動、新品發布會統籌</span></li>
           </ul>
         </div>
         
@@ -154,14 +167,14 @@
           <div class="brand-logo-container">
             <img src="assets/logo-bpa.svg" alt="BPA Logo" class="brand-logo-img">
           </div>
-          <h3 class="service-name">BPA 品商匯</h3>
-          <p class="service-desc">
+          <h3 class="service-name" data-i18n="service2_name">BPA 品商匯</h3>
+          <p class="service-desc" data-i18n="service2_desc">
             專為企業菁英、創辦人及高階主管打造的商務資源對接與媒合平台。打破行業壁壘，以主題聚會、資源媒合沙龍及企業參訪，實現高效率的跨界合作與商機互惠。
           </p>
           <ul class="brand-features-list">
-            <li><i class="fa-solid fa-circle-check feature-check"></i> <span>跨行業商務資源對接與引介</span></li>
-            <li><i class="fa-solid fa-circle-check feature-check"></i> <span>菁英企業主主題式引薦交流會</span></li>
-            <li><i class="fa-solid fa-circle-check feature-check"></i> <span>企業合夥人、新創項目資源孵化</span></li>
+            <li><i class="fa-solid fa-circle-check feature-check"></i> <span data-i18n="service2_feat1">跨行業商務資源對接與引介</span></li>
+            <li><i class="fa-solid fa-circle-check feature-check"></i> <span data-i18n="service2_feat2">菁英企業主主題式引薦交流會</span></li>
+            <li><i class="fa-solid fa-circle-check feature-check"></i> <span data-i18n="service2_feat3">企業合夥人、新創項目資源孵化</span></li>
           </ul>
         </div>
         
@@ -176,14 +189,14 @@
             <div class="brand-logo-container">
               <img src="assets/logo-space.svg" alt="品空間 Logo" class="brand-logo-img brightness-logo">
             </div>
-            <h3 class="service-name text-white">品空間</h3>
-            <p class="service-desc text-white-opacity">
+            <h3 class="service-name text-white" data-i18n="service3_name">品空間</h3>
+            <p class="service-desc text-white-opacity" data-i18n="service3_desc">
               AI+U 旗下的頂級奢華實體體驗會所。結合人文藝術與品牌美學，為高端品牌提供精品展示、VIP 私人沙龍、藝術展覽及高端新品體驗的完美沉浸式場域。
             </p>
             <ul class="brand-features-list text-white-opacity">
-              <li><i class="fa-solid fa-circle-check feature-check light-glow-check"></i> <span>精品品牌發布、尊榮 VIP 沙龍空間</span></li>
-              <li><i class="fa-solid fa-circle-check feature-check light-glow-check"></i> <span>人文藝術展覽、品酒與生活美學課程</span></li>
-              <li><i class="fa-solid fa-circle-check feature-check light-glow-check"></i> <span>客製化企業私人宴會與聚會策劃</span></li>
+              <li><i class="fa-solid fa-circle-check feature-check light-glow-check"></i> <span data-i18n="service3_feat1">精品品牌發布、尊榮 VIP 沙龍空間</span></li>
+              <li><i class="fa-solid fa-circle-check feature-check light-glow-check"></i> <span data-i18n="service3_feat2">人文藝術展覽、品酒與生活美學課程</span></li>
+              <li><i class="fa-solid fa-circle-check feature-check light-glow-check"></i> <span data-i18n="service3_feat3">客製化企業私人宴會與聚會策劃</span></li>
             </ul>
           </div>
         </div>
@@ -195,7 +208,7 @@
   <section class="connect" id="connect">
     <div class="section-container">
       <div class="section-title-wrapper" data-reveal>
-        <h2 class="section-title">數位連結與團隊</h2>
+        <h2 class="section-title" data-i18n="connect_section_title">數位連結與團隊</h2>
         <div class="section-title-bar"></div>
       </div>
       
@@ -205,8 +218,8 @@
           <div class="card-mockup" id="digital-card-mockup">
             <div class="card-mockup-glow"></div>
             <div class="card-mockup-header">
-              <span class="mockup-editorial">KYIMC INTEGRATED MARKETING</span>
-              <div class="mockup-chip"><i class="fa-solid fa-bolt"></i> NFC</div>
+              <span class="mockup-editorial" data-i18n="editorial_brand_label">AI+U INTEGRATED MARKETING</span>
+              <div class="mockup-chip"><i class="fa-solid fa-bolt"></i> <span data-i18n="mockup_nfc">NFC</span></div>
             </div>
             <div class="card-mockup-body">
               <div class="mockup-avatar-placeholder">
@@ -221,36 +234,36 @@
                 </svg>
               </div>
               <div class="mockup-info">
-                <h3 class="mockup-name">Carol 吳凱若</h3>
-                <p class="mockup-title">CEO 執行長</p>
+                <h3 class="mockup-name" data-i18n="mockup_name">Carol 吳凱若</h3>
+                <p class="mockup-title" data-i18n="mockup_title">CEO 執行長</p>
                 <div class="mockup-badge">
                   <i class="fa-solid fa-briefcase"></i>
-                  <span>AI+U</span>
+                  <span data-i18n="mockup_badge">AI+U</span>
                 </div>
               </div>
             </div>
             <div class="card-mockup-footer">
-              <span class="mockup-hint"><i class="fa-solid fa-hand-pointer"></i> 觸碰或點擊探索</span>
+              <span class="mockup-hint"><i class="fa-solid fa-hand-pointer"></i> <span data-i18n="mockup_hint">觸碰或點擊探索</span></span>
             </div>
           </div>
         </div>
         
         <!-- Description & Scan Area -->
         <div class="connect-info-box" data-reveal="delay-1">
-          <span class="editorial-brand-label">DIGITAL BUSINESS CARD</span>
-          <h3 class="connect-headline">無縫對接商機，<br>隨時與我們保持聯絡</h3>
-          <p class="connect-desc">
+          <span class="editorial-brand-label" data-i18n="editorial_brand_label">DIGITAL BUSINESS CARD</span>
+          <h3 class="connect-headline" data-i18n="connect_headline">無縫對接商機，<br>隨時與我們保持聯絡</h3>
+          <p class="connect-desc" data-i18n="connect_desc">
             我們將實體碰碰卡與數位化商務落地網頁完美結合。只需感應 NFC 卡片或掃描 QR Code，即可立刻在手機上存取 Carol 吳凱若執行長的完整聯絡資訊，一鍵存入電話簿，迅速對接合作商機。
           </p>
           
           <div class="actions-row">
             <a href="card.html" class="btn btn-primary" id="btn-open-card">
-              <span class="btn-text">開啟 Carol 的數位名片</span>
+              <span class="btn-text" data-i18n="btn_open_card">開啟 Carol 的數位名片</span>
               <i class="fa-solid fa-id-card btn-icon"></i>
             </a>
             
             <button class="btn btn-secondary" id="btn-show-qr">
-              <span class="btn-text">掃描名片 QR Code</span>
+              <span class="btn-text" data-i18n="btn_show_qr">掃描名片 QR Code</span>
               <i class="fa-solid fa-qrcode btn-icon"></i>
             </button>
           </div>
@@ -263,37 +276,37 @@
   <section class="booking" id="booking">
     <div class="section-container">
       <div class="section-title-wrapper" data-reveal>
-        <h2 class="section-title">商務預約諮詢</h2>
+        <h2 class="section-title" data-i18n="booking_section_title">商務預約諮詢</h2>
         <div class="section-title-bar"></div>
       </div>
       
       <div class="booking-grid">
         <div class="booking-info-box" data-reveal>
-          <span class="editorial-brand-label">CONSULTATION INQUIRY</span>
-          <h3 class="booking-headline">開啟您的品牌升級之旅</h3>
-          <p class="booking-desc">
-            不論您是需要深入的品牌經營戰略規劃、BPA 品商匯的商務合作媒合，或是想了解「品空間」的場地租借與 VIP 活動企劃，請填寫右側表單。我們的專業顧問團隊將於 24 小時內與您聯繫，協助規劃最符合您品牌需求的方案。
+          <span class="editorial-brand-label" data-i18n="editorial_brand_label">CONSULTATION INQUIRY</span>
+          <h3 class="booking-headline" data-i18n="booking_headline">開啟您的品牌升級之旅</h3>
+          <p class="booking-desc" data-i18n="booking_desc">
+            不論您是需要深入的品牌經營戰略規劃、BPA 品商匯的商務合作媒合，或是想了解「品空間」的場地租借與 VIP 活動企氣劃，請填寫右側表單。我們的專業顧問團隊將於 24 小時內與您聯繫，協助規劃最符合您品牌需求的方案。
           </p>
           <div class="contact-quick-info">
             <div class="info-item">
               <i class="fa-solid fa-phone info-icon"></i>
               <div>
-                <h4>聯絡電話</h4>
+                <h4 data-i18n="info_phone_label">聯絡電話</h4>
                 <p>02-2396-8828 | 0955-752068</p>
               </div>
             </div>
             <div class="info-item">
               <i class="fa-solid fa-envelope info-icon"></i>
               <div>
-                <h4>電子郵件</h4>
+                <h4 data-i18n="info_email_label">電子郵件</h4>
                 <p>wcr830@gmail.com</p>
               </div>
             </div>
             <div class="info-item">
               <i class="fa-solid fa-location-dot info-icon"></i>
               <div>
-                <h4>總部地址</h4>
-                <p>台北市忠孝東路二段118號5樓</p>
+                <h4 data-i18n="info_address_label">總部地址</h4>
+                <p data-i18n="address_value">台北市忠孝東路二段118號5樓</p>
               </div>
             </div>
           </div>
@@ -304,54 +317,54 @@
           <form class="booking-form" id="consultation-form" novalidate>
             <div class="form-row">
               <div class="form-group">
-                <label for="form-name" class="form-label">您的姓名</label>
+                <label for="form-name" class="form-label" data-i18n="form_name_label">您的姓名</label>
                 <div class="input-wrapper">
                   <i class="fa-regular fa-user input-icon"></i>
-                  <input type="text" id="form-name" class="form-input" placeholder="請輸入姓名" required>
+                  <input type="text" id="form-name" class="form-input" placeholder="請輸入姓名" data-i18n-placeholder="form_name_placeholder" required>
                 </div>
               </div>
               
               <div class="form-group">
-                <label for="form-phone" class="form-label">聯絡電話</label>
+                <label for="form-phone" class="form-label" data-i18n="form_phone_label">聯絡電話</label>
                 <div class="input-wrapper">
                   <i class="fa-solid fa-mobile-screen-button input-icon"></i>
-                  <input type="tel" id="form-phone" class="form-input" placeholder="請輸入電話" required>
+                  <input type="tel" id="form-phone" class="form-input" placeholder="請輸入電話" data-i18n-placeholder="form_phone_placeholder" required>
                 </div>
               </div>
             </div>
 
             <div class="form-group">
-              <label for="form-email" class="form-label">電子郵件信箱</label>
+              <label for="form-email" class="form-label" data-i18n="form_email_label">電子郵件信箱</label>
               <div class="input-wrapper">
                 <i class="fa-regular fa-envelope input-icon"></i>
-                <input type="email" id="form-email" class="form-input" placeholder="example@gmail.com" required>
+                <input type="email" id="form-email" class="form-input" placeholder="example@gmail.com" data-i18n-placeholder="form_email_placeholder" required>
               </div>
             </div>
 
             <div class="form-group">
-              <label for="form-service" class="form-label">諮詢品牌與服務項目</label>
+              <label for="form-service" class="form-label" data-i18n="form_service_label">諮詢品牌與服務項目</label>
               <div class="input-wrapper">
                 <i class="fa-solid fa-briefcase input-icon"></i>
                 <select id="form-service" class="form-select" required>
-                  <option value="" disabled selected>請選擇您想諮詢的服務...</option>
-                  <option value="kyimc">AI+U (品牌諮詢/整合公關/專案策劃)</option>
-                  <option value="bpa">BPA 品商匯 (商務媒合/跨界合夥/社群對接)</option>
-                  <option value="space">品空間 (實體場地會所/VIP奢華活動策劃)</option>
-                  <option value="all">全方位商機策略合作諮詢</option>
+                  <option value="" disabled selected data-i18n="form_service_default">請選擇您想諮詢的服務...</option>
+                  <option value="kyimc" data-i18n="form_service_opt1">AI+U (品牌諮詢/整合公關/專案策劃)</option>
+                  <option value="bpa" data-i18n="form_service_opt2">BPA 品商匯 (商務媒合/跨界合夥/社群對接)</option>
+                  <option value="space" data-i18n="form_service_opt3">品空間 (實體場地會所/VIP奢華活動策劃)</option>
+                  <option value="all" data-i18n="form_service_opt4">全方位商機策略合作諮詢</option>
                 </select>
               </div>
             </div>
 
             <div class="form-group">
-              <label for="form-message" class="form-label">合作需求 / 諮詢備註</label>
+              <label for="form-message" class="form-label" data-i18n="form_message_label">合作需求 / 諮詢備註</label>
               <div class="input-wrapper">
                 <i class="fa-regular fa-envelope-open input-icon align-top"></i>
-                <textarea id="form-message" class="form-textarea" rows="4" placeholder="請填寫您的合作想法、公司簡介或具體面臨的品牌瓶頸..." required></textarea>
+                <textarea id="form-message" class="form-textarea" rows="4" placeholder="請填寫您的合作想法、公司簡介或具體面臨的品牌瓶頸..." data-i18n-placeholder="form_message_placeholder" required></textarea>
               </div>
             </div>
 
             <button type="submit" class="btn-submit" id="btn-submit">
-              <span class="btn-submit-text">送出商務諮詢申請</span>
+              <span class="btn-submit-text" data-i18n="btn_submit_text">送出商務諮詢申請</span>
               <i class="fa-solid fa-paper-plane submit-icon"></i>
             </button>
           </form>
@@ -367,20 +380,20 @@
         <div class="footer-brand">
           <img src="assets/logo-kyimc.svg" alt="AI+U Logo" class="footer-logo-img">
           <div>
-            <h3>AI+U管理顧問有限公司</h3>
-            <p>專業品牌、商務對接與空間美學的實踐者</p>
+            <h3 data-i18n="footer_brand_name">AI+U管理顧問有限公司</h3>
+            <p data-i18n="footer_desc">專業品牌、商務對接與空間美學的實踐者</p>
           </div>
         </div>
       </div>
       
       <div class="footer-details">
-        <p><i class="fa-solid fa-location-dot footer-icon"></i> <span>台北市忠孝東路二段118號5樓</span></p>
+        <p><i class="fa-solid fa-location-dot footer-icon"></i> <span data-i18n="address_value">台北市忠孝東路二段118號5樓</span></p>
         <p><i class="fa-solid fa-phone footer-icon"></i> <span>02-2396-8828</span> | <i class="fa-solid fa-mobile-screen-button footer-icon"></i> <span>0955-752068</span></p>
         <p><i class="fa-solid fa-id-card footer-icon"></i> <span>統一編號：29144884</span></p>
       </div>
       
       <div class="footer-bottom">
-        <p class="copyright">&copy; 2026 AI+U管理顧問有限公司. All rights reserved.</p>
+        <p class="copyright" data-i18n="copyright">&copy; 2026 AI+U管理顧問有限公司. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -392,8 +405,8 @@
         <i class="fa-solid fa-xmark"></i>
       </button>
       
-      <h3 class="modal-title">掃描分享 Carol 名片</h3>
-      <p class="modal-desc">用手機相機掃描下方 QR Code，即可立刻在手機上開啟 Carol 的數位個人名片，並將聯絡資料匯入電話簿。</p>
+      <h3 class="modal-title" data-i18n="modal_title">掃描分享 Carol 名片</h3>
+      <p class="modal-desc" data-i18n="modal_desc">用手機相機掃描下方 QR Code，即可立刻在手機上開啟 Carol 的數位個人名片，並將聯絡資料匯入電話簿。</p>
       
       <div class="qr-code-wrapper">
         <div class="qr-code-bg">
@@ -402,7 +415,7 @@
         </div>
       </div>
       
-      <button class="btn btn-secondary close-modal-btn" id="modal-close-action">關閉視窗</button>
+      <button class="btn btn-secondary close-modal-btn" id="modal-close-action" data-i18n="modal_close">關閉視窗</button>
     </div>
   </dialog>
 
