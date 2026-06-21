@@ -5,6 +5,7 @@
 let currentLang = 'zh';
 
 document.addEventListener('DOMContentLoaded', () => {
+  trackPageView('website');
   initNavbar();
   initTheme();
   initLanguage();
@@ -13,6 +14,27 @@ document.addEventListener('DOMContentLoaded', () => {
   initShareModal();
   initConsultationForm();
 });
+
+/* ==========================================================================
+   0. 數據追蹤輔助函數 (Data Tracking Helpers)
+   ========================================================================== */
+function trackPageView(pageType) {
+  const key = `aiu_pv_${pageType}`;
+  let pv = parseInt(localStorage.getItem(key) || '0');
+  localStorage.setItem(key, pv + 1);
+  
+  // 紀錄每日趨勢
+  trackDailyPV(pageType);
+}
+
+function trackDailyPV(pageType) {
+  const trendKey = `aiu_pv_trend_${pageType}`;
+  const trendData = JSON.parse(localStorage.getItem(trendKey) || '{}');
+  const today = new Date().toISOString().split('T')[0];
+  
+  trendData[today] = (trendData[today] || 0) + 1;
+  localStorage.setItem(trendKey, JSON.stringify(trendData));
+}
 
 /* ==========================================================================
    1. 導覽列滾動與行動版選單 (Navbar & Mobile Menu)
@@ -333,6 +355,22 @@ function initConsultationForm() {
       if (submitIcon) {
         submitIcon.className = 'fa-solid fa-paper-plane submit-icon';
       }
+
+      // 儲存預約諮詢資訊至 localStorage
+      const inquiries = JSON.parse(localStorage.getItem('aiu_inquiries') || '[]');
+      const newInquiry = {
+        id: 'inq_' + Date.now(),
+        type: 'website',
+        name: nameInput.value.trim(),
+        phone: phoneInput.value.trim(),
+        email: emailInput.value.trim(),
+        service: serviceInput.options[serviceInput.selectedIndex].text,
+        message: messageInput.value.trim(),
+        date: new Date().toISOString(),
+        read: false
+      };
+      inquiries.unshift(newInquiry);
+      localStorage.setItem('aiu_inquiries', JSON.stringify(inquiries));
 
       // 輸出主控台紀錄 (方便測試驗證)
       console.log('--- 收到來自官方網站的商務諮詢申請 ---');

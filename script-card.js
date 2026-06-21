@@ -1,12 +1,55 @@
 /**
- * Carol 吳凱若 - 電子名片 (NFC 碰碰卡落地網頁) 互動邏輯
+ * Carol 吳凱若 - 電子名片 (NFC 碰碰卡落地網頁) 互動邏輯與數據追蹤
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  trackPageView('card');
   initTheme();
+  initClickTracking();
   initShareModal();
   initContactForm();
 });
+
+/* ==========================================================================
+   0. 數據追蹤輔助函數 (Data Tracking Helpers)
+   ========================================================================== */
+function trackPageView(pageType) {
+  const key = `aiu_pv_${pageType}`;
+  let pv = parseInt(localStorage.getItem(key) || '0');
+  localStorage.setItem(key, pv + 1);
+  
+  // 紀錄每日趨勢
+  trackDailyPV(pageType);
+}
+
+function trackDailyPV(pageType) {
+  const trendKey = `aiu_pv_trend_${pageType}`;
+  const trendData = JSON.parse(localStorage.getItem(trendKey) || '{}');
+  const today = new Date().toISOString().split('T')[0];
+  
+  trendData[today] = (trendData[today] || 0) + 1;
+  localStorage.setItem(trendKey, JSON.stringify(trendData));
+}
+
+function trackClick(eventKey) {
+  const key = `aiu_click_${eventKey}`;
+  let count = parseInt(localStorage.getItem(key) || '0');
+  localStorage.setItem(key, count + 1);
+}
+
+function initClickTracking() {
+  const vcardBtn = document.getElementById('btn-vcard');
+  const callBtn = document.getElementById('btn-call');
+  const lineBtn = document.getElementById('btn-line');
+  const mapBtn = document.getElementById('btn-map');
+  const emailBtn = document.getElementById('btn-email');
+
+  if (vcardBtn) vcardBtn.addEventListener('click', () => trackClick('vcard'));
+  if (callBtn) callBtn.addEventListener('click', () => trackClick('call'));
+  if (lineBtn) lineBtn.addEventListener('click', () => trackClick('line'));
+  if (mapBtn) mapBtn.addEventListener('click', () => trackClick('map'));
+  if (emailBtn) emailBtn.addEventListener('click', () => trackClick('email'));
+}
 
 /* ==========================================================================
    1. 深淺主題切換邏輯 (Theme Manager)
@@ -17,7 +60,7 @@ function initTheme() {
   
   const icon = themeBtn.querySelector('i');
   
-  // 檢查 localStorage，預設為 light 湖水綠主題 (#42BEC9 底色)
+  // 讀取本地儲存的主題設定，與首頁同步
   const savedTheme = localStorage.getItem('theme');
   
   if (savedTheme === 'dark') {
@@ -53,8 +96,6 @@ function initTheme() {
     }
   }
 }
-
-
 
 /* ==========================================================================
    3. 分享 QR Code 彈窗管理 (Dynamic QR Code Dialog)
@@ -144,6 +185,22 @@ function initContactForm() {
       if (submitIcon) {
         submitIcon.className = 'fa-solid fa-paper-plane submit-icon';
       }
+
+      // 儲存預約留言資訊至 localStorage (與首頁共用)
+      const inquiries = JSON.parse(localStorage.getItem('aiu_inquiries') || '[]');
+      const newInquiry = {
+        id: 'inq_' + Date.now(),
+        type: 'card',
+        name: nameInput.value.trim(),
+        phone: phoneInput.value.trim(),
+        email: '', // 電子名片上無 Email 欄位
+        service: '個人數位名片留言諮詢',
+        message: messageInput.value.trim(),
+        date: new Date().toISOString(),
+        read: false
+      };
+      inquiries.unshift(newInquiry);
+      localStorage.setItem('aiu_inquiries', JSON.stringify(inquiries));
 
       // 輸出主控台紀錄 (方便測試驗證)
       console.log('--- 收到來自電子名片的商務洽談預約 ---');

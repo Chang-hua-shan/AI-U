@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI+U | 商務數據管理後台</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style-dashboard.css">
+</head>
+<body class="dashboard-page">
+
+  <!-- Ambient Background Glow -->
+  <div class="glow-sphere sphere-1"></div>
+  <div class="glow-sphere sphere-2"></div>
+  <div class="glow-sphere sphere-3"></div>
+
+  <!-- Dashboard Container -->
+  <div class="dashboard-wrapper">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="dashboard-sidebar">
+      <div class="sidebar-header">
+        <img src="assets/logo-kyimc.svg" alt="AI+U Logo" class="sidebar-logo">
+      </div>
+      <div class="sidebar-user">
+        <div class="user-avatar">
+          <svg viewBox="0 0 200 220" fill="none" class="avatar-svg">
+            <path d="M100 25 C122 25 140 43 140 65 C140 82 130 96 116 102 C142 113 160 137 162 165 H38 C40 137 58 113 84 102 C70 96 60 82 60 65 C60 43 78 25 100 25 Z" fill="url(#avatar-grad)" />
+            <defs>
+              <linearGradient id="avatar-grad" x1="100" y1="25" x2="100" y2="165" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#E91B62"/>
+                <stop offset="1" stop-color="#0A0A0B"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="user-info">
+          <h3 class="user-name">Carol 吳凱若</h3>
+          <p class="user-role">CEO 執行長</p>
+        </div>
+      </div>
+      
+      <nav class="sidebar-menu">
+        <a href="#overview" class="menu-item active"><i class="fa-solid fa-chart-line"></i> 數據總覽</a>
+        <a href="#inquiries" class="menu-item"><i class="fa-solid fa-envelope-open-text"></i> 預約留言管理</a>
+        <a href="index.html" class="menu-item"><i class="fa-solid fa-house"></i> 返回官網首頁</a>
+        <a href="card.html" class="menu-item"><i class="fa-solid fa-id-card"></i> 前往個人名片</a>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <button id="btn-logout" class="btn-logout">
+          <span>登出管理系統</span>
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="dashboard-main">
+      <!-- Top header bar -->
+      <header class="main-header">
+        <div class="header-title-box">
+          <h1 class="header-title">商務數據管理中心</h1>
+          <p class="header-subtitle">即時監控網站瀏覽、捷徑點擊與預約詢問紀錄</p>
+        </div>
+        <div class="header-actions">
+          <span class="date-badge" id="current-date-badge">2026年6月21日</span>
+        </div>
+      </header>
+
+      <!-- KPI Metrics Grid -->
+      <section class="kpi-grid">
+        <!-- Metric 1: Total PV -->
+        <div class="kpi-card">
+          <div class="kpi-icon-box bg-gradient-pink">
+            <i class="fa-regular fa-eye"></i>
+          </div>
+          <div class="kpi-info">
+            <h4 class="kpi-label">全站總瀏覽量</h4>
+            <p class="kpi-value" id="kpi-total-pv">0</p>
+            <span class="kpi-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i> 整合流量統計</span>
+          </div>
+        </div>
+        
+        <!-- Metric 2: Form Inquiries -->
+        <div class="kpi-card">
+          <div class="kpi-icon-box bg-gradient-purple">
+            <i class="fa-regular fa-paper-plane"></i>
+          </div>
+          <div class="kpi-info">
+            <h4 class="kpi-label">收到商務詢問</h4>
+            <p class="kpi-value" id="kpi-total-inq">0</p>
+            <span class="kpi-trend trend-up"><i class="fa-solid fa-message"></i> 留言預約累計</span>
+          </div>
+        </div>
+        
+        <!-- Metric 3: vCard Downloads -->
+        <div class="kpi-card">
+          <div class="kpi-icon-box bg-gradient-blue">
+            <i class="fa-solid fa-user-plus"></i>
+          </div>
+          <div class="kpi-info">
+            <h4 class="kpi-label">聯絡人儲存次數</h4>
+            <p class="kpi-value" id="kpi-vcard-clicks">0</p>
+            <span class="kpi-trend"><i class="fa-solid fa-circle-check"></i> vCard 點擊下載</span>
+          </div>
+        </div>
+        
+        <!-- Metric 4: Short-cuts click-through rate -->
+        <div class="kpi-card">
+          <div class="kpi-icon-box bg-gradient-teal">
+            <i class="fa-solid fa-share-nodes"></i>
+          </div>
+          <div class="kpi-info">
+            <h4 class="kpi-label">社群連結點擊</h4>
+            <p class="kpi-value" id="kpi-social-clicks">0</p>
+            <span class="kpi-trend"><i class="fa-solid fa-location-arrow"></i> LINE/電話/導航</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Charts Layout -->
+      <section class="charts-row">
+        <!-- SVG Line Chart for Page Views -->
+        <div class="chart-card flex-2">
+          <h3 class="chart-title"><i class="fa-solid fa-chart-area"></i> 近一週訪客瀏覽量趨勢</h3>
+          <div class="svg-chart-container" id="pv-trend-chart-box">
+            <!-- Dynamic SVG chart will be injected here by script -->
+          </div>
+          <div class="chart-legends">
+            <span class="legend-item"><span class="legend-dot color-website"></span> 官方網站首頁</span>
+            <span class="legend-item"><span class="legend-dot color-card"></span> Carol 數位名片</span>
+          </div>
+        </div>
+        
+        <!-- SVG Donut Chart for Social clicks distribution -->
+        <div class="chart-card flex-1">
+          <h3 class="chart-title"><i class="fa-solid fa-chart-pie"></i> 社群快捷鍵點擊分佈</h3>
+          <div class="svg-chart-container" id="clicks-pie-chart-box">
+            <!-- Dynamic SVG pie chart will be injected here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Inquiries Data Table Section -->
+      <section class="data-table-card" id="inquiries-section">
+        <div class="card-header-table">
+          <h3 class="table-title"><i class="fa-solid fa-envelope-open-text"></i> 預約留言管理名單</h3>
+          <div class="table-actions">
+            <!-- Filter by Source -->
+            <select id="filter-source" class="table-filter-select">
+              <option value="all">所有來源</option>
+              <option value="website">首頁諮詢</option>
+              <option value="card">名片留言</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="table-scroll-wrapper">
+          <table class="data-table" id="inquiries-table">
+            <thead>
+              <tr>
+                <th>提交日期</th>
+                <th>來源</th>
+                <th>聯絡姓名</th>
+                <th>電話號碼</th>
+                <th>電子信箱</th>
+                <th>諮詢項目</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="inquiries-table-body">
+              <!-- Submissions rows will be appended here dynamically -->
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Table empty state -->
+        <div class="table-empty-state" id="table-empty-state">
+          <i class="fa-regular fa-envelope"></i>
+          <p>目前尚無任何商務預約留言</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Inquiry Details View Modal -->
+  <dialog class="modal" id="inquiry-detail-modal">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close-btn" aria-label="關閉彈窗">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      
+      <h3 class="modal-title">商務預約留言詳細資訊</h3>
+      <div class="inquiry-details-container">
+        <div class="detail-row">
+          <span class="detail-label">來源</span>
+          <span class="detail-val" id="detail-source">官方網站首頁</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">提交時間</span>
+          <span class="detail-val" id="detail-date">2026/06/21 08:30</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">姓名</span>
+          <span class="detail-val font-highlight" id="detail-name">李小美</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">聯絡電話</span>
+          <span class="detail-val" id="detail-phone">0912-345678</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">電子信箱</span>
+          <span class="detail-val" id="detail-email">xiaomei@gmail.com</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">諮詢項目</span>
+          <span class="detail-val font-service" id="detail-service">AI+U (品牌諮詢/整合公關/專案策劃)</span>
+        </div>
+        <div class="detail-row block-row">
+          <span class="detail-label">合作留言說明</span>
+          <div class="detail-textarea-box" id="detail-message">
+            我們想邀請 AI+U 團隊進行品牌診斷，目前公司的品牌定位有些模糊...
+          </div>
+        </div>
+      </div>
+      
+      <button class="btn btn-secondary close-modal-btn" id="modal-close-action">關閉視窗</button>
+    </div>
+  </dialog>
+
+  <!-- JavaScript -->
+  <script src="script-dashboard.js"></script>
+</body>
+</html>
