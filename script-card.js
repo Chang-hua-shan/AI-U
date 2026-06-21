@@ -2,13 +2,80 @@
  * Carol 吳凱若 - 電子名片 (NFC 碰碰卡落地網頁) 互動邏輯與數據追蹤
  */
 
+let currentLang = 'zh';
+
 document.addEventListener('DOMContentLoaded', () => {
   trackPageView('card');
   initTheme();
+  initLanguage();
   initClickTracking();
   initShareModal();
   initContactForm();
 });
+
+/* ==========================================================================
+   00. 多國語言翻譯邏輯 (Language Switcher)
+   ========================================================================== */
+function initLanguage() {
+  const langSelect = document.getElementById('lang-select');
+  if (!langSelect) return;
+
+  // 讀取本地儲存語言，與首頁同步，預設為繁中 'zh'
+  currentLang = localStorage.getItem('lang') || 'zh';
+  langSelect.value = currentLang;
+
+  // 初始套用語言翻譯
+  applyLanguage(currentLang);
+
+  // 監聽選單切換
+  langSelect.addEventListener('change', (e) => {
+    currentLang = e.target.value;
+    localStorage.setItem('lang', currentLang);
+    applyLanguage(currentLang);
+    
+    // 如果首頁開啟，可以發送事件通知同步 (本專案透過 localStorage 儲存即可跨頁面同步)
+  });
+}
+
+function applyLanguage(lang) {
+  if (typeof translations === 'undefined' || !translations[lang]) return;
+
+  // 1. 翻譯所有 data-i18n 的元素
+  const elements = document.querySelectorAll('[data-i18n]');
+  elements.forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang][key] !== undefined) {
+      const textValue = translations[lang][key];
+      if (textValue.includes('<')) {
+        el.innerHTML = textValue;
+      } else {
+        el.textContent = textValue;
+      }
+    }
+  });
+
+  // 2. 翻譯所有 data-i18n-placeholder 的輸入框
+  const inputs = document.querySelectorAll('[data-i18n-placeholder]');
+  inputs.forEach(input => {
+    const key = input.getAttribute('data-i18n-placeholder');
+    if (translations[lang][key] !== undefined) {
+      input.placeholder = translations[lang][key];
+    }
+  });
+
+  // 3. 更新網頁 document lang 屬性
+  let langAttr = 'zh-Hant-TW';
+  if (lang === 'en') langAttr = 'en';
+  if (lang === 'cn') langAttr = 'zh-Hans-CN';
+  if (lang === 'ja') langAttr = 'ja';
+  document.documentElement.lang = langAttr;
+}
+
+function getTranslation(key) {
+  return typeof translations !== 'undefined' && translations[currentLang] && translations[currentLang][key] !== undefined
+    ? translations[currentLang][key]
+    : ((typeof translations !== 'undefined' && translations['zh'] && translations['zh'][key]) || '');
+}
 
 /* ==========================================================================
    0. 數據追蹤輔助函數 (Data Tracking Helpers)
@@ -164,14 +231,13 @@ function initContactForm() {
 
     // 簡易表單驗證
     if (!nameInput.value.trim() || !phoneInput.value.trim() || !messageInput.value.trim()) {
-      showToast('請完整填寫所有欄位！', 'fa-solid fa-triangle-exclamation');
+      showToast(getTranslation('card_toast_validation'), 'fa-solid fa-triangle-exclamation');
       return;
     }
 
     // 進入傳送載入中狀態 (Simulating Loading State)
-    const originalBtnText = submitBtn.querySelector('.btn-submit-text').textContent;
     submitBtn.disabled = true;
-    submitBtn.querySelector('.btn-submit-text').textContent = '傳送預約中...';
+    submitBtn.querySelector('.btn-submit-text').textContent = getTranslation('card_btn_submitting');
     const submitIcon = submitBtn.querySelector('.submit-icon');
     if (submitIcon) {
       submitIcon.className = 'fa-solid fa-spinner fa-spin submit-icon';
@@ -181,7 +247,7 @@ function initContactForm() {
     setTimeout(() => {
       // 成功狀態還原
       submitBtn.disabled = false;
-      submitBtn.querySelector('.btn-submit-text').textContent = originalBtnText;
+      submitBtn.querySelector('.btn-submit-text').textContent = getTranslation('card_btn_submit');
       if (submitIcon) {
         submitIcon.className = 'fa-solid fa-paper-plane submit-icon';
       }
@@ -213,7 +279,7 @@ function initContactForm() {
       form.reset();
 
       // 彈出奢華質感 Toast 成功提示
-      showToast('訊息已成功傳送！', 'fa-solid fa-circle-check');
+      showToast(getTranslation('card_toast_success'), 'fa-solid fa-circle-check');
     }, 1200);
   });
 
