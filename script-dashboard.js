@@ -168,6 +168,127 @@ function initDashboard() {
       });
     }
   });
+
+  // 注入展示數據按鈕事件
+  const demoDataBtn = document.getElementById('btn-demo-data');
+  if (demoDataBtn) {
+    demoDataBtn.addEventListener('click', () => {
+      // 1. 設置基本計數
+      localStorage.setItem('aiu_pv_website', '1254');
+      localStorage.setItem('aiu_pv_card', '846');
+      localStorage.setItem('aiu_click_vcard', '124');
+      localStorage.setItem('aiu_click_call', '45');
+      localStorage.setItem('aiu_click_line', '98');
+      localStorage.setItem('aiu_click_map', '32');
+      localStorage.setItem('aiu_click_email', '18');
+
+      // 2. 動態生成最近 7 日趨勢數據 (以當前時間為基準向前推移，確保 demo 時圖表正常)
+      const trendWebsite = {};
+      const trendCard = {};
+      const websiteBaseVals = [62, 85, 78, 105, 128, 110, 142];
+      const cardBaseVals = [35, 48, 42, 68, 75, 70, 94];
+      
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const dateStr = d.toISOString().split('T')[0];
+        trendWebsite[dateStr] = websiteBaseVals[6 - i];
+        trendCard[dateStr] = cardBaseVals[6 - i];
+      }
+      localStorage.setItem('aiu_pv_trend_website', JSON.stringify(trendWebsite));
+      localStorage.setItem('aiu_pv_trend_card', JSON.stringify(trendCard));
+
+      // 3. 設置模擬留言預約清單
+      const mockInquiries = [
+        {
+          id: 'inq_demo1',
+          type: 'website',
+          name: '陳志明',
+          phone: '0912-345-678',
+          email: 'cm.chen@techcorp.com',
+          service: '個人品牌定位顧問',
+          message: '您好，我是科技公司創辦人，目前公司正準備進行A輪融資，希望規劃個人品牌 IP 形象以助融資推廣。想與吳執行長預約一對一品牌診斷，謝謝！',
+          date: new Date(Date.now() - 1000 * 60 * 30).toISOString() // 30分鐘前
+        },
+        {
+          id: 'inq_demo2',
+          type: 'card',
+          name: '林雅婷',
+          phone: '0988-765-432',
+          email: '',
+          service: '個人數位名片留言諮詢',
+          message: '剛才與 Carol 執行長在商務晚宴上碰面，對你們的 Kyimc AI+U 品牌孵化方案很感興趣。希望能索取詳細的合作說明簡報，並安排會議，謝謝！',
+          date: new Date(Date.now() - 1000 * 60 * 180).toISOString() // 3小時前
+        },
+        {
+          id: 'inq_demo3',
+          type: 'website',
+          name: '張家豪',
+          phone: '0933-111-222',
+          email: 'jiahua.chang@bpa.org.tw',
+          service: '整合行銷公關傳播',
+          message: '我們協會下半年將舉辦全國年會，預估會有 500 位企業創辦人出席。希望與 AI+U 洽談年會的整合行銷與媒體公關報導規劃，期待收到回信。',
+          date: new Date(Date.now() - 1000 * 60 * 600).toISOString() // 10小時前
+        },
+        {
+          id: 'inq_demo4',
+          type: 'website',
+          name: 'Sonia Wang',
+          phone: '0955-444-333',
+          email: 'sonia.wang@retailgroup.com',
+          service: '自媒體與 IP 孵化顧問',
+          message: '您好，我是連鎖餐飲品牌的公關總監。我們董事長想要打造知識型自媒體，希望能請貴司團隊協助規劃抖音/YouTube短影音矩陣定位，並孵化商業IP。',
+          date: new Date(Date.now() - 1000 * 60 * 1200).toISOString() // 20小時前
+        },
+        {
+          id: 'inq_demo5',
+          type: 'card',
+          name: '許宇軒',
+          phone: '0966-888-999',
+          email: '',
+          service: '個人數位名片留言諮詢',
+          message: '希望能租借「品空間」作為我們新書發表會的場地（約40人），想了解場地租借費用與設備配備。',
+          date: new Date(Date.now() - 1000 * 60 * 1000 * 48).toISOString() // 2天前
+        },
+        {
+          id: 'inq_demo6',
+          type: 'website',
+          name: '謝美玲',
+          phone: '0922-555-666',
+          email: 'ml_hsieh@creative.co',
+          service: '其他跨界商務合作',
+          message: '想與 Carol 執行長洽談跨界行銷合作。我們希望邀請 AI+U 作為我們孵化計畫的商務指導單位。',
+          date: new Date(Date.now() - 1000 * 60 * 1000 * 72).toISOString() // 3天前
+        }
+      ];
+      localStorage.setItem('aiu_inquiries', JSON.stringify(mockInquiries));
+
+      alert('✨ 展示數據注入成功！後台資料庫已動態載入。');
+      loadDashboardData(); // 重新整理後台渲染數據
+    });
+  }
+
+  // 清空數據按鈕事件
+  const clearDataBtn = document.getElementById('btn-clear-data');
+  if (clearDataBtn) {
+    clearDataBtn.addEventListener('click', () => {
+      if (confirm('⚠️ 您確定要清空所有後台統計數據與預約名單嗎？此動作將清空 LocalStorage 中的相關紀錄。')) {
+        localStorage.removeItem('aiu_pv_website');
+        localStorage.removeItem('aiu_pv_card');
+        localStorage.removeItem('aiu_click_vcard');
+        localStorage.removeItem('aiu_click_call');
+        localStorage.removeItem('aiu_click_line');
+        localStorage.removeItem('aiu_click_map');
+        localStorage.removeItem('aiu_click_email');
+        localStorage.removeItem('aiu_pv_trend_website');
+        localStorage.removeItem('aiu_pv_trend_card');
+        localStorage.setItem('aiu_inquiries', '[]');
+        
+        alert('🧹 數據已全部清空，後台回歸初始化狀態。');
+        loadDashboardData(); // 重新整理後台渲染數據
+      }
+    });
+  }
 }
 
 // 載入與計算數據
