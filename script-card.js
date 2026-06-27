@@ -357,16 +357,74 @@ function initAdminPanel() {
     });
   }
 
-  // 登出後台按鈕
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
+  // 側邊欄抽屜開關邏輯
+  const sidebar = document.getElementById('admin-sidebar');
+  const overlay = document.getElementById('admin-sidebar-overlay');
+  const sidebarToggle = document.getElementById('admin-sidebar-toggle');
+  const sidebarClose = document.getElementById('admin-sidebar-close-btn');
+  const sidebarLogoutBtn = document.getElementById('btn-admin-sidebar-logout');
+
+  const closeSidebar = () => {
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  };
+
+  if (sidebarToggle && sidebar && overlay) {
+    sidebarToggle.addEventListener('click', () => {
+      sidebar.classList.add('open');
+      overlay.classList.add('open');
+    });
+  }
+
+  if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
+  if (overlay) overlay.addEventListener('click', closeSidebar);
+
+  // 側邊欄選單點擊切換頁面 (SPA 邏輯)
+  const menuItems = document.querySelectorAll('.admin-sidebar-menu .admin-menu-item');
+  menuItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      menuItems.forEach(mi => mi.classList.remove('active'));
+      item.classList.add('active');
+
+      const href = item.getAttribute('href'); // e.g. #admin-overview
+      const tabId = 'admin-tab-' + href.substring(7); // e.g. admin-tab-overview
+      
+      const tabs = document.querySelectorAll('.admin-tab-content');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      
+      const actualTab = document.getElementById(tabId);
+      if (actualTab) {
+        actualTab.classList.add('active');
+      }
+
+      closeSidebar();
+    });
+  });
+
+  // 側邊欄登出按鈕
+  if (sidebarLogoutBtn) {
+    sidebarLogoutBtn.addEventListener('click', () => {
       sessionStorage.removeItem('aiu_auth');
       alert('🔒 已安全登出管理員身份。');
+      closeSidebar();
       adminModal.close();
     });
   }
 
   function openAdminPanel() {
+    // 預設重置回第一個分頁
+    menuItems.forEach(mi => mi.classList.remove('active'));
+    const firstMenuOpt = document.getElementById('menu-opt-overview');
+    if (firstMenuOpt) firstMenuOpt.classList.add('active');
+
+    const tabs = document.querySelectorAll('.admin-tab-content');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    const firstTab = document.getElementById('admin-tab-overview');
+    if (firstTab) firstTab.classList.add('active');
+
+    closeSidebar();
     adminModal.showModal();
     loadAdminDashboardData();
   }

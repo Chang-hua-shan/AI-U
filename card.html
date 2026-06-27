@@ -229,65 +229,103 @@
 
   <!-- Admin Panel Modal -->
   <dialog class="modal admin-panel-modal" id="admin-panel-modal" style="max-width: 600px; width: 95%;">
-    <div class="modal-content" style="text-align: left;">
-      <button class="modal-close" id="admin-close-btn" aria-label="關閉彈窗">
+    <div class="modal-content admin-panel-modal-content" style="text-align: left;">
+      
+      <!-- Drawer Sidebar Menu -->
+      <div class="admin-sidebar-overlay" id="admin-sidebar-overlay"></div>
+      <div class="admin-sidebar" id="admin-sidebar">
+        <div class="admin-sidebar-header">
+          <div class="admin-sidebar-title">管理選單</div>
+          <button class="admin-sidebar-close" id="admin-sidebar-close-btn" aria-label="關閉選單">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <nav class="admin-sidebar-menu">
+          <a href="#admin-overview" class="admin-menu-item active" id="menu-opt-overview">
+            <i class="fa-solid fa-chart-line"></i> 數據總覽
+          </a>
+          <a href="#admin-inquiries" class="admin-menu-item" id="menu-opt-inquiries">
+            <i class="fa-solid fa-envelope-open-text"></i> 預約留言
+          </a>
+          <a href="#admin-tools" class="admin-menu-item" id="menu-opt-tools">
+            <i class="fa-solid fa-screwdriver-wrench"></i> 展示控制
+          </a>
+        </nav>
+        <div class="admin-sidebar-footer">
+          <button id="btn-admin-sidebar-logout" class="admin-sidebar-logout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i> 登出後台
+          </button>
+        </div>
+      </div>
+
+      <!-- Header actions inside modal -->
+      <button class="modal-close" id="admin-close-btn" aria-label="關閉後台">
         <i class="fa-solid fa-xmark"></i>
       </button>
       
-      <h3 class="modal-title" style="text-align: left; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-        <i class="fa-solid fa-user-gear" style="color: var(--primary-color);"></i> Carol 數位名片數據後台
-      </h3>
-      <p class="modal-desc" style="text-align: left; margin-bottom: 24px;">即時監控本張數位名片的點擊量、瀏覽數與客戶詢問名單</p>
+      <div class="admin-header-bar" style="display: flex; align-items: center; gap: 12px; margin-bottom: 4px;">
+        <button class="modal-menu-toggle" id="admin-sidebar-toggle" aria-label="選單">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <h3 class="modal-title" style="text-align: left; display: flex; align-items: center; gap: 8px; margin-bottom: 0;">
+          <i class="fa-solid fa-user-gear" style="color: var(--primary-color);"></i> Carol 數位名片後台
+        </h3>
+      </div>
+      <p class="modal-desc" style="text-align: left; margin-bottom: 20px; margin-left: 48px;">即時監控本張數位名片的點擊量、瀏覽數與客戶留言</p>
       
-      <!-- Admin KPI Grid -->
-      <div class="admin-kpi-grid">
-        <div class="admin-kpi-card">
-          <div class="kpi-label">名片總瀏覽量</div>
-          <div class="kpi-value" id="admin-kpi-pv">0</div>
-        </div>
-        <div class="admin-kpi-card">
-          <div class="kpi-value-container" style="display:flex; justify-content:space-between; align-items:center;">
-            <div class="kpi-label">名片諮詢預約</div>
+      <!-- Tab 1: Overview (數據總覽) -->
+      <div id="admin-tab-overview" class="admin-tab-content active">
+        <!-- Admin KPI Grid -->
+        <div class="admin-kpi-grid">
+          <div class="admin-kpi-card">
+            <div class="kpi-label">名片總瀏覽量</div>
+            <div class="kpi-value" id="admin-kpi-pv">0</div>
           </div>
-          <div class="kpi-value" id="admin-kpi-inq">0</div>
+          <div class="admin-kpi-card">
+            <div class="kpi-label">名片諮詢預約</div>
+            <div class="kpi-value" id="admin-kpi-inq">0</div>
+          </div>
+          <div class="admin-kpi-card">
+            <div class="kpi-label">通訊錄下載數</div>
+            <div class="kpi-value" id="admin-kpi-vcard">0</div>
+          </div>
+          <div class="admin-kpi-card">
+            <div class="kpi-label">社群連結點擊</div>
+            <div class="kpi-value" id="admin-kpi-social">0</div>
+          </div>
         </div>
-        <div class="admin-kpi-card">
-          <div class="kpi-label">通訊錄下載數</div>
-          <div class="kpi-value" id="admin-kpi-vcard">0</div>
-        </div>
-        <div class="admin-kpi-card">
-          <div class="kpi-label">社群連結點擊</div>
-          <div class="kpi-value" id="admin-kpi-social">0</div>
+
+        <!-- Admin Charts Row -->
+        <div class="admin-charts-container">
+          <h4 class="admin-section-title"><i class="fa-solid fa-chart-area"></i> 七日瀏覽量趨勢</h4>
+          <div class="admin-chart-box" id="admin-pv-chart"></div>
+          
+          <h4 class="admin-section-title"><i class="fa-solid fa-chart-pie"></i> 社群快捷鍵點擊分佈</h4>
+          <div class="admin-chart-box" id="admin-pie-chart" style="height: auto; min-height: 200px;"></div>
         </div>
       </div>
 
-      <!-- Admin Charts Row -->
-      <div class="admin-charts-container">
-        <h4 class="admin-section-title"><i class="fa-solid fa-chart-area"></i> 七日瀏覽量趨勢</h4>
-        <div class="admin-chart-box" id="admin-pv-chart"></div>
-        
-        <h4 class="admin-section-title"><i class="fa-solid fa-chart-pie"></i> 社群快捷鍵點擊分佈</h4>
-        <div class="admin-chart-box" id="admin-pie-chart" style="height: auto; min-height: 200px;"></div>
+      <!-- Tab 2: Inquiries (預約留言) -->
+      <div id="admin-tab-inquiries" class="admin-tab-content">
+        <h4 class="admin-section-title" style="margin-top: 16px;"><i class="fa-solid fa-envelope-open-text"></i> 預約留言管理名單</h4>
+        <div class="admin-inquiries-list" id="admin-inquiries-list-box">
+          <!-- inquiries cards injected here -->
+        </div>
       </div>
 
-      <!-- Inquiries List -->
-      <h4 class="admin-section-title" style="margin-top: 16px;"><i class="fa-solid fa-envelope-open-text"></i> 預約留言管理名單</h4>
-      <div class="admin-inquiries-list" id="admin-inquiries-list-box">
-        <!-- inquiries cards injected here -->
+      <!-- Tab 3: Tools (展示控制) -->
+      <div id="admin-tab-tools" class="admin-tab-content">
+        <h4 class="admin-section-title"><i class="fa-solid fa-screwdriver-wrench"></i> 測試展示控制組</h4>
+        <div class="admin-actions" style="border-top: none; padding-top: 0; margin-top: 0;">
+          <button id="btn-admin-demo" class="btn btn-primary" style="height: 40px; font-size: 13px; margin-bottom: 8px;">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> 注入展示數據
+          </button>
+          <button id="btn-admin-clear" class="btn btn-secondary" style="height: 40px; font-size: 13px; color: #ff3b30; border-color: rgba(255, 59, 48, 0.25); margin-bottom: 8px;">
+            <i class="fa-solid fa-trash-can"></i> 清空所有數據
+          </button>
+        </div>
       </div>
 
-      <!-- Demo Controls & Logout -->
-      <div class="admin-actions">
-        <button id="btn-admin-demo" class="btn btn-primary" style="height: 40px; font-size: 13px; margin-bottom: 8px;">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> 注入展示數據
-        </button>
-        <button id="btn-admin-clear" class="btn btn-secondary" style="height: 40px; font-size: 13px; color: #ff3b30; border-color: rgba(255, 59, 48, 0.25); margin-bottom: 8px;">
-          <i class="fa-solid fa-trash-can"></i> 清空所有數據
-        </button>
-        <button id="btn-admin-logout" class="btn btn-secondary" style="height: 40px; font-size: 13px; margin-top: 8px;">
-          <i class="fa-solid fa-right-from-bracket"></i> 登出管理員身份
-        </button>
-      </div>
     </div>
   </dialog>
 

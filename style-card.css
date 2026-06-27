@@ -1357,3 +1357,201 @@ body.dark-theme .donut-slice-empty { stroke: rgba(255, 255, 255, 0.05); }
   padding-top: 18px;
   margin-top: 10px;
 }
+
+/* ==========================================================================
+   MOBILE ADMIN SIDEBAR (行動端抽屜式側邊欄)
+   ========================================================================== */
+
+/* Set container to relative/hidden to clip the drawer inside the modal window */
+.admin-panel-modal-content {
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+  min-height: 480px;
+}
+
+/* Mobile Sidebar Drawer */
+.admin-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 200px;
+  background: var(--modal-bg);
+  border-right: 1px solid var(--card-border);
+  z-index: 1002;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  box-shadow: 10px 0 24px rgba(0, 0, 0, 0.15);
+}
+
+.admin-sidebar.open {
+  transform: translateX(0);
+}
+
+/* Sidebar Overlay */
+.admin-sidebar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 10, 11, 0.45);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 1001;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.admin-sidebar-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Sidebar Elements */
+.admin-sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 10px;
+}
+
+.admin-sidebar-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.admin-sidebar-close {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-primary);
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+body.dark-theme .admin-sidebar-close {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-sidebar-close:hover {
+  background: rgba(233, 27, 98, 0.1);
+  color: var(--primary-color);
+}
+
+.admin-sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-grow: 1;
+}
+
+.admin-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--border-radius-md);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.admin-menu-item:hover {
+  background: var(--quick-link-bg);
+  color: var(--primary-color);
+}
+
+.admin-menu-item.active {
+  background: var(--primary-gradient);
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px var(--glow-primary);
+}
+
+.admin-sidebar-footer {
+  border-top: 1px solid var(--card-border);
+  padding-top: 14px;
+}
+
+.admin-sidebar-logout-btn {
+  width: 100%;
+  height: 36px;
+  border-radius: var(--border-radius-md);
+  border: 1px solid rgba(233, 27, 98, 0.2);
+  background: none;
+  color: var(--primary-color);
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.admin-sidebar-logout-btn:hover {
+  background: rgba(233, 27, 98, 0.08);
+  border-color: var(--primary-color);
+}
+
+/* Hamburger toggle styling */
+.modal-menu-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--quick-link-bg);
+  border: 1px solid var(--quick-link-border);
+  color: var(--text-primary);
+  font-size: 15px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.modal-menu-toggle:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+/* Tabs content displaying rules */
+.admin-tab-content {
+  display: none;
+  margin-top: 10px;
+}
+
+.admin-tab-content.active {
+  display: block;
+  animation: adminTabFadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes adminTabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
