@@ -144,7 +144,27 @@ function initDashboard() {
     });
   }
 
-  // 側邊欄分頁切換邏輯 (Tab Switching)
+  // 側邊欄分頁切換與抽屜開關邏輯 (Tab Switching & Drawer Menu)
+  const sidebar = document.querySelector('.dashboard-sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  const sidebarToggle = document.getElementById('btn-sidebar-toggle');
+  const sidebarClose = document.getElementById('btn-sidebar-close');
+
+  const closeSidebar = () => {
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  };
+
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener('click', () => {
+      if (sidebar) sidebar.classList.add('open');
+      if (overlay) overlay.classList.add('open');
+    });
+  }
+
+  if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
+  if (overlay) overlay.addEventListener('click', closeSidebar);
+
   const menuItems = document.querySelectorAll('.sidebar-menu .menu-item');
   menuItems.forEach(item => {
     const targetId = item.getAttribute('href');
@@ -165,6 +185,9 @@ function initDashboard() {
         if (targetTab) {
           targetTab.classList.add('active');
         }
+
+        // 行動版切換分頁後自動收合選單
+        closeSidebar();
       });
     }
   });

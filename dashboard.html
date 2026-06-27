@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="style-dashboard.css?v=1.1">
+  <link rel="stylesheet" href="style-dashboard.css">
 </head>
 <body class="dashboard-page">
 
@@ -26,10 +26,16 @@
   <!-- Dashboard Container -->
   <div class="dashboard-wrapper">
     
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    
     <!-- Sidebar Navigation -->
     <aside class="dashboard-sidebar">
       <div class="sidebar-header">
         <img src="assets/logo-kyimc.svg" alt="AI+U Logo" class="sidebar-logo">
+        <button class="sidebar-close-btn" id="btn-sidebar-close" aria-label="關閉選單">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
       <div class="sidebar-user">
         <div class="user-avatar">
@@ -74,6 +80,9 @@
     <main class="dashboard-main">
       <!-- Top header bar -->
       <header class="main-header">
+        <button class="mobile-sidebar-toggle" id="btn-sidebar-toggle" aria-label="打開選單">
+          <i class="fa-solid fa-bars"></i>
+        </button>
         <div class="header-title-box">
           <h1 class="header-title">商務數據管理中心</h1>
           <p class="header-subtitle">即時監控網站瀏覽、捷徑點擊與預約詢問紀錄</p>

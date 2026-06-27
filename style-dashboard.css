@@ -1169,66 +1169,133 @@ button {
   }
 }
 
+/* Sidebar close and toggle defaults */
+.mobile-sidebar-toggle, .sidebar-close-btn {
+  display: none;
+}
+
 @media (max-width: 992px) {
   .dashboard-wrapper {
     flex-direction: column;
   }
   
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 11, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 99;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .sidebar-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
   .dashboard-sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    border-right: none;
-    border-bottom: 1px solid var(--card-border);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    border-right: 1px solid var(--card-border);
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  body.dark-theme .dashboard-sidebar {
+    background: rgba(15, 15, 18, 0.98);
+  }
+  
+  .dashboard-sidebar.open {
+    transform: translateX(0);
   }
   
   .sidebar-header {
-    padding: 20px;
+    padding: 30px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .sidebar-close-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--border-radius-full);
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-primary);
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+  }
+  
+  body.dark-theme .sidebar-close-btn {
+    background: rgba(255, 255, 255, 0.05);
   }
   
   .sidebar-user {
-    display: none; /* Hide user block in mobile nav */
+    display: flex;
+    padding: 20px;
   }
   
   .sidebar-menu {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 10px;
-    gap: 6px;
+    flex-direction: column;
+    padding: 10px 20px;
+    gap: 8px;
   }
   
   .menu-item {
-    padding: 8px 14px;
-    font-size: 12.5px;
+    padding: 12px 16px;
+    font-size: 14px;
   }
   
   .sidebar-footer {
-    display: none; /* Hide footer logout block, we will put logout button elsewhere or wrap it */
-  }
-  
-  .dashboard-sidebar .sidebar-footer {
-    display: block;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 0;
-    border-top: none;
-  }
-  
-  .btn-logout {
-    width: auto;
-    height: 36px;
-    padding: 0 14px;
-  }
-  
-  .btn-logout span {
-    display: none; /* Hide text on mobile button */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
   }
   
   .dashboard-main {
     margin-left: 0;
     padding: 24px 16px;
+  }
+  
+  .main-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .mobile-sidebar-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: var(--border-radius-full);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    font-size: 16px;
+    cursor: pointer;
+    flex-shrink: 0;
   }
   
   .charts-row {
