@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initClickTracking();
   initShareModal();
   initContactForm();
+  initAdminPanel();
 });
 
 /* ==========================================================================
@@ -297,5 +298,521 @@ function initContactForm() {
     setTimeout(() => {
       toast.classList.remove('show');
     }, 3500);
+  }
+}
+
+/* ==========================================================================
+   5. 整合型個人名片數據後台管理邏輯 (Integrated Admin Panel)
+   ========================================================================== */
+function initAdminPanel() {
+  const adminBtn = document.getElementById('btn-admin-login');
+  const adminFooterBtn = document.getElementById('btn-admin-footer');
+  const adminModal = document.getElementById('admin-panel-modal');
+  const closeBtn = document.getElementById('admin-close-btn');
+
+  const demoBtn = document.getElementById('btn-admin-demo');
+  const clearBtn = document.getElementById('btn-admin-clear');
+  const logoutBtn = document.getElementById('btn-admin-logout');
+
+  if (!adminModal) return;
+
+  const handleAdminClick = (e) => {
+    if (e) e.preventDefault();
+    const isAuthed = sessionStorage.getItem('aiu_auth') === 'true';
+    if (isAuthed) {
+      openAdminPanel();
+    } else {
+      const pass = prompt('請輸入管理員密碼：');
+      if (pass === 'aiu888') {
+        sessionStorage.setItem('aiu_auth', 'true');
+        openAdminPanel();
+      } else if (pass !== null) {
+        alert('❌ 密碼錯誤，拒絕存取。');
+      }
+    }
+  };
+
+  // 登入後台觸發事件
+  if (adminBtn) adminBtn.addEventListener('click', handleAdminClick);
+  if (adminFooterBtn) adminFooterBtn.addEventListener('click', handleAdminClick);
+
+  // 關閉按鈕
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      adminModal.close();
+    });
+  }
+
+  // 注入數據按鈕
+  if (demoBtn) {
+    demoBtn.addEventListener('click', () => {
+      injectAdminDemoData();
+    });
+  }
+
+  // 清空數據按鈕
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      clearAdminData();
+    });
+  }
+
+  // 登出後台按鈕
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      sessionStorage.removeItem('aiu_auth');
+      alert('🔒 已安全登出管理員身份。');
+      adminModal.close();
+    });
+  }
+
+  function openAdminPanel() {
+    adminModal.showModal();
+    loadAdminDashboardData();
+  }
+}
+
+// 載入與計算數據渲染
+function loadAdminDashboardData() {
+  // 1. 讀取數據計數器
+  const pvWebsite = parseInt(localStorage.getItem('aiu_pv_website') || '0');
+  const pvCard = parseInt(localStorage.getItem('aiu_pv_card') || '0');
+
+  const clickVcard = parseInt(localStorage.getItem('aiu_click_vcard') || '0');
+  const clickCall = parseInt(localStorage.getItem('aiu_click_call') || '0');
+  const clickLine = parseInt(localStorage.getItem('aiu_click_line') || '0');
+  const clickMap = parseInt(localStorage.getItem('aiu_click_map') || '0');
+  const clickEmail = parseInt(localStorage.getItem('aiu_click_email') || '0');
+
+  const inquiries = JSON.parse(localStorage.getItem('aiu_inquiries') || '[]');
+
+  // 2. 填入 KPI
+  document.getElementById('admin-kpi-pv').textContent = pvCard.toLocaleString(); // 此名片單獨的瀏覽量
+  document.getElementById('admin-kpi-inq').textContent = inquiries.filter(i => i.type === 'card').length.toLocaleString(); // 此名片的留言數
+  document.getElementById('admin-kpi-vcard').textContent = clickVcard.toLocaleString();
+  document.getElementById('admin-kpi-social').textContent = (clickCall + clickLine + clickMap + clickEmail).toLocaleString();
+
+  // 3. 繪製圖表
+  renderAdminPvTrendChart();
+  renderAdminClicksPieChart();
+
+  // 4. 渲染留言清單
+  renderAdminInquiriesList();
+}
+
+// 繪製七日趨勢圖
+function renderAdminPvTrendChart() {
+  const chartBox = document.getElementById('admin-pv-chart');
+  if (!chartBox) return;
+
+  const days = [];
+  const websiteData = [];
+  const cardData = [];
+
+  const trendWebsite = JSON.parse(localStorage.getItem('aiu_pv_trend_website') || '{}');
+  const trendCard = JSON.parse(localStorage.getItem('aiu_pv_trend_card') || '{}');
+
+  // 計算最近七日
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const dateStr = d.toISOString().split('T')[0];
+    
+    // 取簡短日期 (M/D) 供圖表標籤使用
+    const label = (d.getMonth() + 1) + '/' + d.getDate();
+    days.push(label);
+    
+    websiteData.push(trendWebsite[dateStr] || 0);
+    cardData.push(trendCard[dateStr] || 0);
+  }
+
+  const allVals = [...websiteData, ...cardData];
+  const maxVal = Math.max(...allVals, 10);
+  const graphMax = Math.ceil(maxVal / 10) * 10;
+
+  // SVG 模板
+  let pointsWebsite = '';
+  let pointsCard = '';
+  let areaWebsite = '';
+  let areaCard = '';
+  
+  const width = 280;
+  const height = 110;
+  const paddingLeft = 25;
+  const paddingRight = 10;
+  const paddingTop = 15;
+  const paddingBottom = 20;
+  
+  const plotWidth = width - paddingLeft - paddingRight;
+  const plotHeight = height - paddingTop - paddingBottom;
+
+  for (let i = 0; i < 7; i++) {
+    const x = paddingLeft + (i / 6) * plotWidth;
+    const yWebsite = paddingTop + plotHeight - (websiteData[i] / graphMax) * plotHeight;
+    const yCard = paddingTop + plotHeight - (cardData[i] / graphMax) * plotHeight;
+
+    pointsWebsite += `${x},${yWebsite} `;
+    pointsCard += `${x},${yCard} `;
+    
+    if (i === 0) {
+      areaWebsite += `${x},${paddingTop + plotHeight} ${x},${yWebsite} `;
+      areaCard += `${x},${paddingTop + plotHeight} ${x},${yCard} `;
+    } else {
+      areaWebsite += `${x},${yWebsite} `;
+      areaCard += `${x},${yCard} `;
+    }
+    
+    if (i === 6) {
+      areaWebsite += `${x},${paddingTop + plotHeight}`;
+      areaCard += `${x},${paddingTop + plotHeight}`;
+    }
+  }
+
+  // 建構 SVG
+  let svgHtml = `
+    <svg viewBox="0 0 ${width} ${height}" class="chart-svg">
+      <defs>
+        <linearGradient id="grad-website-admin" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#C2185B" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#C2185B" stop-opacity="0.0"/>
+        </linearGradient>
+        <linearGradient id="grad-card-admin" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#00B4D8" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#00B4D8" stop-opacity="0.0"/>
+        </linearGradient>
+      </defs>
+      
+      <!-- Grid Lines -->
+      <line x1="${paddingLeft}" y1="${paddingTop}" x2="${width - paddingRight}" y2="${paddingTop}" class="chart-grid-line" />
+      <line x1="${paddingLeft}" y1="${paddingTop + plotHeight * 0.5}" x2="${width - paddingRight}" y2="${paddingTop + plotHeight * 0.5}" class="chart-grid-line" />
+      <line x1="${paddingLeft}" y1="${paddingTop + plotHeight}" x2="${width - paddingRight}" y2="${paddingTop + plotHeight}" class="chart-axis-line" />
+      
+      <!-- Y-Axis Labels -->
+      <text x="${paddingLeft - 4}" y="${paddingTop + 3}" text-anchor="end" class="chart-axis-text">${graphMax}</text>
+      <text x="${paddingLeft - 4}" y="${paddingTop + plotHeight * 0.5 + 3}" text-anchor="end" class="chart-axis-text">${graphMax / 2}</text>
+      <text x="${paddingLeft - 4}" y="${paddingTop + plotHeight + 3}" text-anchor="end" class="chart-axis-text">0</text>
+      
+      <!-- X-Axis Labels -->
+  `;
+
+  for (let i = 0; i < 7; i++) {
+    const x = paddingLeft + (i / 6) * plotWidth;
+    svgHtml += `<text x="${x}" y="${height - 4}" text-anchor="middle" class="chart-axis-text">${days[i]}</text>`;
+  }
+
+  svgHtml += `
+      <!-- Area Paths -->
+      <polygon points="${areaWebsite}" fill="url(#grad-website-admin)"/>
+      <polygon points="${areaCard}" fill="url(#grad-card-admin)"/>
+      
+      <!-- Line Paths -->
+      <polyline points="${pointsWebsite}" class="chart-line-website" />
+      <polyline points="${pointsCard}" class="chart-line-card" />
+  `;
+
+  // Draw points
+  for (let i = 0; i < 7; i++) {
+    const x = paddingLeft + (i / 6) * plotWidth;
+    const yWebsite = paddingTop + plotHeight - (websiteData[i] / graphMax) * plotHeight;
+    const yCard = paddingTop + plotHeight - (cardData[i] / graphMax) * plotHeight;
+
+    svgHtml += `
+      <circle cx="${x}" cy="${yWebsite}" class="chart-point-website"/>
+      <circle cx="${x}" cy="${yCard}" class="chart-point-card"/>
+    `;
+  }
+
+  svgHtml += `</svg>`;
+  chartBox.innerHTML = svgHtml;
+}
+
+// 繪製社群點擊圓環圖
+function renderAdminClicksPieChart() {
+  const chartBox = document.getElementById('admin-pie-chart');
+  if (!chartBox) return;
+
+  const clickVcard = parseInt(localStorage.getItem('aiu_click_vcard') || '0');
+  const clickCall = parseInt(localStorage.getItem('aiu_click_call') || '0');
+  const clickLine = parseInt(localStorage.getItem('aiu_click_line') || '0');
+  const clickMap = parseInt(localStorage.getItem('aiu_click_map') || '0');
+  const clickEmail = parseInt(localStorage.getItem('aiu_click_email') || '0');
+  
+  const total = clickVcard + clickCall + clickLine + clickMap + clickEmail;
+
+  if (total === 0) {
+    chartBox.innerHTML = `
+      <div style="text-align: center; color: var(--text-muted); font-size: 12px; padding: 30px 0;">
+        <i class="fa-solid fa-chart-pie" style="font-size: 24px; margin-bottom: 8px; display: block; opacity: 0.5;"></i>
+        尚無點擊統計數據，請注入數據或點擊上方按鈕測試。
+      </div>
+    `;
+    return;
+  }
+
+  const values = [clickVcard, clickCall, clickLine, clickMap, clickEmail];
+  const percentages = values.map(v => (v / total) * 100);
+
+  // SVG Donut calculation
+  const radius = 28;
+  const circ = 2 * Math.PI * radius; // 175.929
+  
+  const strokeDasharrays = [];
+
+  for (let i = 0; i < 5; i++) {
+    const strokeLen = (values[i] / total) * circ;
+    const spaceLen = circ - strokeLen;
+    strokeDasharrays.push(`${strokeLen} ${spaceLen}`);
+  }
+
+  const offset0 = 0;
+  const offset1 = -((values[0] / total) * circ);
+  const offset2 = -(((values[0] + values[1]) / total) * circ);
+  const offset3 = -(((values[0] + values[1] + values[2]) / total) * circ);
+  const offset4 = -(((values[0] + values[1] + values[2] + values[3]) / total) * circ);
+
+  const offsets = [offset0, offset1, offset2, offset3, offset4];
+
+  let svgHtml = `
+    <div style="display: flex; align-items: center; justify-content: space-around; width: 100%; gap: 10px; flex-wrap: wrap;">
+      <svg width="100" height="100" viewBox="0 0 80 80" style="flex-shrink: 0; transform: rotate(-90deg);">
+        <circle cx="40" cy="40" r="${radius}" class="donut-slice-empty" />
+        
+        <!-- Vcard -->
+        ${values[0] > 0 ? `<circle cx="40" cy="40" r="${radius}" class="donut-slice donut-slice-vcard" stroke-dasharray="${strokeDasharrays[0]}" stroke-dashoffset="${offsets[0]}"/>` : ''}
+        <!-- Call -->
+        ${values[1] > 0 ? `<circle cx="40" cy="40" r="${radius}" class="donut-slice donut-slice-call" stroke-dasharray="${strokeDasharrays[1]}" stroke-dashoffset="${offsets[1]}"/>` : ''}
+        <!-- Line -->
+        ${values[2] > 0 ? `<circle cx="40" cy="40" r="${radius}" class="donut-slice donut-slice-line" stroke-dasharray="${strokeDasharrays[2]}" stroke-dashoffset="${offsets[2]}"/>` : ''}
+        <!-- Map -->
+        ${values[3] > 0 ? `<circle cx="40" cy="40" r="${radius}" class="donut-slice donut-slice-map" stroke-dasharray="${strokeDasharrays[3]}" stroke-dashoffset="${offsets[3]}"/>` : ''}
+        <!-- Email -->
+        ${values[4] > 0 ? `<circle cx="40" cy="40" r="${radius}" class="donut-slice donut-slice-email" stroke-dasharray="${strokeDasharrays[4]}" stroke-dashoffset="${offsets[4]}"/>` : ''}
+        
+        <text x="40" y="38" class="donut-center-text-label" transform="rotate(90 40 40)">總點擊數</text>
+        <text x="40" y="52" class="donut-center-text-val" transform="rotate(90 40 40)">${total}</text>
+      </svg>
+
+      <!-- Legends -->
+      <div style="flex: 1; min-width: 140px;">
+        <div class="donut-legends-grid" style="grid-template-columns: 1fr; gap: 4px;">
+          <div class="donut-legend-row">
+            <span class="donut-legend-label"><span class="legend-dot" style="background:#E91B62;"></span>通訊錄 vCard</span>
+            <span class="donut-legend-val">${clickVcard}次 (${Math.round(percentages[0])}%)</span>
+          </div>
+          <div class="donut-legend-row">
+            <span class="donut-legend-label"><span class="legend-dot" style="background:#9C27B0;"></span>電話熱線</span>
+            <span class="donut-legend-val">${clickCall}次 (${Math.round(percentages[1])}%)</span>
+          </div>
+          <div class="donut-legend-row">
+            <span class="donut-legend-label"><span class="legend-dot" style="background:#4CAF50;"></span>LINE 對接</span>
+            <span class="donut-legend-val">${clickLine}次 (${Math.round(percentages[2])}%)</span>
+          </div>
+          <div class="donut-legend-row">
+            <span class="donut-legend-label"><span class="legend-dot" style="background:#00B4D8;"></span>導航地圖</span>
+            <span class="donut-legend-val">${clickMap}次 (${Math.round(percentages[3])}%)</span>
+          </div>
+          <div class="donut-legend-row">
+            <span class="donut-legend-label"><span class="legend-dot" style="background:#FFEB3B;"></span>Email 信箱</span>
+            <span class="donut-legend-val">${clickEmail}次 (${Math.round(percentages[4])}%)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  chartBox.innerHTML = svgHtml;
+}
+
+// 渲染管理留言清單 (Mobile Cards layout)
+function renderAdminInquiriesList() {
+  const listBox = document.getElementById('admin-inquiries-list-box');
+  if (!listBox) return;
+
+  const inquiries = JSON.parse(localStorage.getItem('aiu_inquiries') || '[]');
+  
+  // 只顯示此張電子名片的預約留言 (type === 'card')
+  const cardInquiries = inquiries.filter(item => item.type === 'card');
+
+  if (cardInquiries.length === 0) {
+    listBox.innerHTML = `
+      <div style="text-align: center; color: var(--text-muted); font-size: 12px; padding: 24px 0; background: var(--quick-link-bg); border-radius: var(--border-radius-md);">
+        目前尚無名片預約留言。
+      </div>
+    `;
+    return;
+  }
+
+  let listHtml = '';
+  cardInquiries.forEach(item => {
+    const d = new Date(item.date);
+    const dateFormatted = `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+    
+    listHtml += `
+      <div class="admin-inquiry-card" id="card-${item.id}">
+        <div class="inquiry-card-header">
+          <span class="inquiry-card-name">${escapeHtml(item.name)}</span>
+          <span class="inquiry-card-date">${dateFormatted}</span>
+        </div>
+        <div class="inquiry-card-body">
+          ${escapeHtml(item.message)}
+        </div>
+        <div class="inquiry-card-actions">
+          <button class="inquiry-card-btn btn-card-view" onclick="showAdminInquiryDetail('${item.id}')">
+            <i class="fa-solid fa-eye"></i> 查看
+          </button>
+          <button class="inquiry-card-btn btn-card-delete" onclick="deleteAdminInquiry('${item.id}')">
+            <i class="fa-solid fa-trash-can"></i> 刪除
+          </button>
+        </div>
+      </div>
+    `;
+  });
+
+  listBox.innerHTML = listHtml;
+}
+
+// 彈出詳細資訊視窗
+function showAdminInquiryDetail(id) {
+  const inquiries = JSON.parse(localStorage.getItem('aiu_inquiries') || '[]');
+  const item = inquiries.find(i => i.id === id);
+  if (!item) return;
+
+  const detailModal = document.getElementById('admin-inquiry-detail-modal');
+  const d = new Date(item.date);
+  const dateFormatted = `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+
+  document.getElementById('admin-detail-source').innerHTML = item.type === 'card' ? '<span class="badge badge-card"><i class="fa-solid fa-id-card"></i> 名片留言</span>' : '<span class="badge badge-website"><i class="fa-solid fa-house"></i> 首頁諮詢</span>';
+  document.getElementById('admin-detail-date').textContent = dateFormatted;
+  document.getElementById('admin-detail-name').textContent = item.name;
+  document.getElementById('admin-detail-phone').textContent = item.phone;
+  document.getElementById('admin-detail-message').textContent = item.message;
+
+  // 關閉事件綁定
+  const closeBtn = document.getElementById('admin-detail-close-btn');
+  const closeAction = document.getElementById('admin-detail-close-action');
+  
+  const closeModal = () => detailModal.close();
+  if (closeBtn) closeBtn.onclick = closeModal;
+  if (closeAction) closeAction.onclick = closeModal;
+
+  detailModal.showModal();
+}
+window.showAdminInquiryDetail = showAdminInquiryDetail; // 綁定到 window 供 HTML 點擊觸發
+
+// 刪除留言
+function deleteAdminInquiry(id) {
+  if (!confirm('⚠️ 確定要刪除這筆留言嗎？此動作無法復原。')) return;
+
+  let inquiries = JSON.parse(localStorage.getItem('aiu_inquiries') || '[]');
+  inquiries = inquiries.filter(item => item.id !== id);
+  localStorage.setItem('aiu_inquiries', JSON.stringify(inquiries));
+
+  // 重新載入數據
+  loadAdminDashboardData();
+}
+window.deleteAdminInquiry = deleteAdminInquiry; // 綁定到 window 供 HTML 點擊觸發
+
+// HTML 跳脫防止 XSS
+function escapeHtml(text) {
+  if (!text) return '';
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+// 注入展示數據
+function injectAdminDemoData() {
+  localStorage.setItem('aiu_pv_website', '1254');
+  localStorage.setItem('aiu_pv_card', '846');
+  localStorage.setItem('aiu_click_vcard', '124');
+  localStorage.setItem('aiu_click_call', '45');
+  localStorage.setItem('aiu_click_line', '98');
+  localStorage.setItem('aiu_click_map', '32');
+  localStorage.setItem('aiu_click_email', '18');
+
+  // 動態生成最近 7 日趨勢數據
+  const trendWebsite = {};
+  const trendCard = {};
+  const websiteBaseVals = [62, 85, 78, 105, 128, 110, 142];
+  const cardBaseVals = [35, 48, 42, 68, 75, 70, 94];
+  
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const dateStr = d.toISOString().split('T')[0];
+    trendWebsite[dateStr] = websiteBaseVals[6 - i];
+    trendCard[dateStr] = cardBaseVals[6 - i];
+  }
+  localStorage.setItem('aiu_pv_trend_website', JSON.stringify(trendWebsite));
+  localStorage.setItem('aiu_pv_trend_card', JSON.stringify(trendCard));
+
+  // 設置模擬名片預約留言
+  const mockInquiries = [
+    {
+      id: 'inq_demo1',
+      type: 'card',
+      name: '林雅婷',
+      phone: '0988-765-432',
+      email: '',
+      service: '個人數位名片留言諮詢',
+      message: '剛才與 Carol 執行長在商務晚宴上碰面，對你們的 Kyimc AI+U 品牌孵化方案很感興趣。希望能索取詳細的合作說明簡報，並安排會議，謝謝！',
+      date: new Date(Date.now() - 1000 * 60 * 30).toISOString() // 30分鐘前
+    },
+    {
+      id: 'inq_demo2',
+      type: 'card',
+      name: '許宇軒',
+      phone: '0966-888-999',
+      email: '',
+      service: '個人數位名片留言諮詢',
+      message: '希望能租借「品空間」作為我們新書發表會的場地（約40人），想了解場地租借費用與設備配備。',
+      date: new Date(Date.now() - 1000 * 60 * 180).toISOString() // 3小時前
+    },
+    {
+      id: 'inq_demo3',
+      type: 'card',
+      name: '黃智遠',
+      phone: '0911-222-333',
+      email: '',
+      service: '個人數位名片留言諮詢',
+      message: '我目前想要進行企業品牌再造，想約 Carol 顧問下週進行 30 分鐘諮詢會議。',
+      date: new Date(Date.now() - 1000 * 60 * 1000 * 24).toISOString() // 1天前
+    }
+  ];
+  
+  // 保留原有 website 的留言，只覆蓋或合著名片留言
+  const originalInquiries = JSON.parse(localStorage.getItem('aiu_inquiries') || '[]');
+  const websiteOnly = originalInquiries.filter(i => i.type !== 'card');
+  const newInquiriesList = [...mockInquiries, ...websiteOnly];
+  
+  localStorage.setItem('aiu_inquiries', JSON.stringify(newInquiriesList));
+
+  alert('✨ 電子名片展示數據注入成功！');
+  loadAdminDashboardData();
+}
+
+// 清空數據
+function clearAdminData() {
+  if (confirm('⚠️ 確定要清空所有統計數據與預約名單嗎？此動作將清除相關儲存紀錄。')) {
+    localStorage.removeItem('aiu_pv_website');
+    localStorage.removeItem('aiu_pv_card');
+    localStorage.removeItem('aiu_click_vcard');
+    localStorage.removeItem('aiu_click_call');
+    localStorage.removeItem('aiu_click_line');
+    localStorage.removeItem('aiu_click_map');
+    localStorage.removeItem('aiu_click_email');
+    localStorage.removeItem('aiu_pv_trend_website');
+    localStorage.removeItem('aiu_pv_trend_card');
+    
+    // 只清空名片留言，保留官網留言
+    const originalInquiries = JSON.parse(localStorage.getItem('aiu_inquiries') || '[]');
+    const websiteOnly = originalInquiries.filter(i => i.type !== 'card');
+    localStorage.setItem('aiu_inquiries', JSON.stringify(websiteOnly));
+
+    alert('🧹 數據已全部清空，後台已重設。');
+    loadAdminDashboardData();
   }
 }

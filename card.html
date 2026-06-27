@@ -53,6 +53,9 @@
       
       <!-- Right Side Actions -->
       <div style="display: flex; gap: 10px;">
+        <button class="icon-btn admin-btn" id="btn-admin-login" aria-label="管理登入" title="管理登入">
+          <i class="fa-solid fa-user-gear"></i>
+        </button>
         <button class="icon-btn theme-toggle" id="theme-toggle-btn" aria-label="切換主題" title="切換主題">
           <i class="fa-solid fa-moon"></i>
         </button>
@@ -197,7 +200,7 @@
         <p><i class="fa-solid fa-phone footer-icon"></i> <span>02-2396-8828</span> | <i class="fa-solid fa-mobile-screen-button footer-icon"></i> <span>0955-752068</span></p>
         <p><i class="fa-solid fa-id-card footer-icon"></i> <span>統一編號：29144884</span></p>
       </div>
-      <p class="copyright"><span data-i18n="copyright">&copy; 2026 AI+U管理顧問有限公司. All rights reserved.</span> | <a href="login.html" style="text-decoration: underline;"><i class="fa-solid fa-lock"></i> 後台管理</a></p>
+      <p class="copyright"><span data-i18n="copyright">&copy; 2026 AI+U管理顧問有限公司. All rights reserved.</span> | <a href="#" id="btn-admin-footer" style="text-decoration: underline;"><i class="fa-solid fa-lock"></i> 後台管理</a></p>
     </footer>
 
   </main>
@@ -221,6 +224,104 @@
       </div>
       
       <button class="btn btn-secondary close-modal-btn" id="modal-close-action" data-i18n="card_modal_close">關閉視窗</button>
+    </div>
+  </dialog>
+
+  <!-- Admin Panel Modal -->
+  <dialog class="modal admin-panel-modal" id="admin-panel-modal" style="max-width: 600px; width: 95%;">
+    <div class="modal-content" style="text-align: left;">
+      <button class="modal-close" id="admin-close-btn" aria-label="關閉彈窗">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      
+      <h3 class="modal-title" style="text-align: left; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+        <i class="fa-solid fa-user-gear" style="color: var(--primary-color);"></i> Carol 數位名片數據後台
+      </h3>
+      <p class="modal-desc" style="text-align: left; margin-bottom: 24px;">即時監控本張數位名片的點擊量、瀏覽數與客戶詢問名單</p>
+      
+      <!-- Admin KPI Grid -->
+      <div class="admin-kpi-grid">
+        <div class="admin-kpi-card">
+          <div class="kpi-label">名片總瀏覽量</div>
+          <div class="kpi-value" id="admin-kpi-pv">0</div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="kpi-value-container" style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="kpi-label">名片諮詢預約</div>
+          </div>
+          <div class="kpi-value" id="admin-kpi-inq">0</div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="kpi-label">通訊錄下載數</div>
+          <div class="kpi-value" id="admin-kpi-vcard">0</div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="kpi-label">社群連結點擊</div>
+          <div class="kpi-value" id="admin-kpi-social">0</div>
+        </div>
+      </div>
+
+      <!-- Admin Charts Row -->
+      <div class="admin-charts-container">
+        <h4 class="admin-section-title"><i class="fa-solid fa-chart-area"></i> 七日瀏覽量趨勢</h4>
+        <div class="admin-chart-box" id="admin-pv-chart"></div>
+        
+        <h4 class="admin-section-title"><i class="fa-solid fa-chart-pie"></i> 社群快捷鍵點擊分佈</h4>
+        <div class="admin-chart-box" id="admin-pie-chart" style="height: auto; min-height: 200px;"></div>
+      </div>
+
+      <!-- Inquiries List -->
+      <h4 class="admin-section-title" style="margin-top: 16px;"><i class="fa-solid fa-envelope-open-text"></i> 預約留言管理名單</h4>
+      <div class="admin-inquiries-list" id="admin-inquiries-list-box">
+        <!-- inquiries cards injected here -->
+      </div>
+
+      <!-- Demo Controls & Logout -->
+      <div class="admin-actions">
+        <button id="btn-admin-demo" class="btn btn-primary" style="height: 40px; font-size: 13px; margin-bottom: 8px;">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> 注入展示數據
+        </button>
+        <button id="btn-admin-clear" class="btn btn-secondary" style="height: 40px; font-size: 13px; color: #ff3b30; border-color: rgba(255, 59, 48, 0.25); margin-bottom: 8px;">
+          <i class="fa-solid fa-trash-can"></i> 清空所有數據
+        </button>
+        <button id="btn-admin-logout" class="btn btn-secondary" style="height: 40px; font-size: 13px; margin-top: 8px;">
+          <i class="fa-solid fa-right-from-bracket"></i> 登出管理員身份
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Inquiry Details Modal -->
+  <dialog class="modal" id="admin-inquiry-detail-modal" style="max-width: 450px;">
+    <div class="modal-content">
+      <button class="modal-close" id="admin-detail-close-btn" aria-label="關閉彈窗">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      
+      <h3 class="modal-title">諮詢預約詳細資訊</h3>
+      <div class="inquiry-details-container" style="text-align: left;">
+        <div class="detail-row">
+          <span class="detail-label">來源</span>
+          <span class="detail-val" id="admin-detail-source">電子名片</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">時間</span>
+          <span class="detail-val" id="admin-detail-date">-</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">姓名</span>
+          <span class="detail-val font-highlight" id="admin-detail-name">-</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">電話</span>
+          <span class="detail-val" id="admin-detail-phone">-</span>
+        </div>
+        <div class="detail-row block-row">
+          <span class="detail-label">合作需求備註</span>
+          <div class="detail-textarea-box" id="admin-detail-message">-</div>
+        </div>
+      </div>
+      <button class="btn btn-secondary close-modal-btn" id="admin-detail-close-action" style="margin-top: 16px;">關閉視窗</button>
     </div>
   </dialog>
 

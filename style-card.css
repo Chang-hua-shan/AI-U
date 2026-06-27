@@ -1029,3 +1029,331 @@ body.light-theme .toast {
     padding: 6px 0;
   }
 }
+
+/* ==========================================================================
+   ADMIN PANEL INTEGRATION (後台整合系統)
+   ========================================================================== */
+
+/* admin-panel-modal overlay styling */
+.admin-panel-modal {
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.admin-panel-modal .modal-content {
+  text-align: left;
+}
+
+.admin-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 20px 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-left: 3px solid var(--primary-color);
+  padding-left: 8px;
+}
+
+/* KPI Grid */
+.admin-kpi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.admin-kpi-card {
+  background: var(--quick-link-bg);
+  border: 1px solid var(--quick-link-border);
+  border-radius: var(--border-radius-md);
+  padding: 12px 14px;
+  box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.admin-kpi-card .kpi-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.admin-kpi-card .kpi-value {
+  font-family: var(--font-english);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--primary-color);
+}
+
+/* SVG Chart Box inside Modal */
+.admin-chart-box {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: var(--quick-link-bg);
+  border: 1px solid var(--quick-link-border);
+  border-radius: var(--border-radius-md);
+  padding: 10px;
+  margin-bottom: 14px;
+}
+
+.chart-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.chart-grid-line {
+  stroke: rgba(233, 27, 98, 0.05);
+  stroke-width: 1;
+}
+
+.chart-axis-line {
+  stroke: rgba(0, 0, 0, 0.08);
+  stroke-width: 1;
+}
+
+body.dark-theme .chart-axis-line {
+  stroke: rgba(255, 255, 255, 0.12);
+}
+
+.chart-axis-text {
+  fill: var(--text-muted);
+  font-family: var(--font-english);
+  font-size: 9px;
+}
+
+.chart-line-website {
+  stroke: #C2185B;
+  stroke-width: 3;
+  fill: none;
+  stroke-linecap: round;
+}
+
+.chart-line-card {
+  stroke: #00B4D8;
+  stroke-width: 3;
+  fill: none;
+  stroke-linecap: round;
+}
+
+.chart-area-website {
+  fill: url(#grad-website);
+  opacity: 0.1;
+}
+
+.chart-area-card {
+  fill: url(#grad-card);
+  opacity: 0.08;
+}
+
+.chart-point-website {
+  fill: #E91B62;
+  stroke: #FFFFFF;
+  stroke-width: 1.5;
+  r: 4;
+}
+
+.chart-point-card {
+  fill: #00B4D8;
+  stroke: #FFFFFF;
+  stroke-width: 1.5;
+  r: 4;
+}
+
+.donut-slice {
+  fill: none;
+  stroke-width: 12;
+}
+.donut-slice-vcard  { stroke: #E91B62; }
+.donut-slice-call   { stroke: #9C27B0; }
+.donut-slice-line   { stroke: #4CAF50; }
+.donut-slice-map    { stroke: #00B4D8; }
+.donut-slice-email  { stroke: #FFEB3B; }
+
+.donut-slice-empty  { stroke: rgba(0, 0, 0, 0.04); stroke-width: 12; fill: none; }
+body.dark-theme .donut-slice-empty { stroke: rgba(255, 255, 255, 0.05); }
+
+.donut-center-text-label {
+  fill: var(--text-muted);
+  font-size: 7.5px;
+  text-anchor: middle;
+  font-weight: 600;
+}
+
+.donut-center-text-val {
+  fill: var(--text-primary);
+  font-family: var(--font-english);
+  font-size: 15px;
+  font-weight: 800;
+  text-anchor: middle;
+}
+
+.donut-legends-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 12px;
+  width: 100%;
+  margin-top: 14px;
+}
+
+.donut-legend-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10.5px;
+}
+
+.donut-legend-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-secondary);
+}
+
+.legend-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--border-radius-full);
+  display: inline-block;
+}
+
+.donut-legend-val {
+  font-family: var(--font-english);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Inquiries List View */
+.admin-inquiries-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 4px;
+  border-radius: var(--border-radius-md);
+  margin-bottom: 20px;
+}
+
+.admin-inquiry-card {
+  background: var(--quick-link-bg);
+  border: 1px solid var(--quick-link-border);
+  border-radius: var(--border-radius-md);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 2px 6px var(--shadow-color);
+  transition: all var(--transition-fast);
+}
+
+.admin-inquiry-card:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.inquiry-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inquiry-card-name {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 13.5px;
+}
+
+.inquiry-card-date {
+  font-family: var(--font-english);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.inquiry-card-body {
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.badge-source {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: var(--border-radius-sm);
+  font-size: 9.5px;
+  font-weight: 700;
+  gap: 3px;
+}
+
+.badge-website {
+  background: rgba(233, 27, 98, 0.08);
+  color: var(--primary-color);
+  border: 1px solid rgba(233, 27, 98, 0.15);
+}
+
+.badge-card {
+  background: rgba(0, 180, 216, 0.08);
+  color: #00B4D8;
+  border: 1px solid rgba(0, 180, 216, 0.15);
+}
+
+.inquiry-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.inquiry-card-btn {
+  height: 28px;
+  padding: 0 10px;
+  font-size: 11.5px;
+  font-weight: 600;
+  border-radius: var(--border-radius-md);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.btn-card-view {
+  background: rgba(0, 180, 216, 0.08);
+  border: 1px solid rgba(0, 180, 216, 0.2);
+  color: #00B4D8;
+}
+
+.btn-card-view:hover {
+  background: #00B4D8;
+  color: #FFFFFF;
+  border-color: transparent;
+}
+
+.btn-card-delete {
+  background: rgba(233, 27, 98, 0.08);
+  border: 1px solid rgba(233, 27, 98, 0.2);
+  color: var(--primary-color);
+}
+
+.btn-card-delete:hover {
+  background: var(--primary-gradient);
+  color: #FFFFFF;
+  border-color: transparent;
+}
+
+.admin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid var(--card-border);
+  padding-top: 18px;
+  margin-top: 10px;
+}
