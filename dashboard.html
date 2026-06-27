@@ -52,8 +52,6 @@
       <nav class="sidebar-menu">
         <a href="#overview" class="menu-item active"><i class="fa-solid fa-chart-line"></i> 數據總覽</a>
         <a href="#inquiries" class="menu-item"><i class="fa-solid fa-envelope-open-text"></i> 預約留言管理</a>
-        <a href="index.html" class="menu-item"><i class="fa-solid fa-house"></i> 返回官網首頁</a>
-        <a href="card.html" class="menu-item"><i class="fa-solid fa-id-card"></i> 前往個人名片</a>
       </nav>
       
       <div class="sidebar-footer">
@@ -77,119 +75,125 @@
         </div>
       </header>
 
-      <!-- KPI Metrics Grid -->
-      <section class="kpi-grid">
-        <!-- Metric 1: Total PV -->
-        <div class="kpi-card">
-          <div class="kpi-icon-box bg-gradient-pink">
-            <i class="fa-regular fa-eye"></i>
+      <!-- Tab Content: Overview (數據總覽) -->
+      <div id="overview-tab" class="tab-content active">
+        <!-- KPI Metrics Grid -->
+        <section class="kpi-grid">
+          <!-- Metric 1: Total PV -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box bg-gradient-pink">
+              <i class="fa-regular fa-eye"></i>
+            </div>
+            <div class="kpi-info">
+              <h4 class="kpi-label">全站總瀏覽量</h4>
+              <p class="kpi-value" id="kpi-total-pv">0</p>
+              <span class="kpi-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i> 整合流量統計</span>
+            </div>
           </div>
-          <div class="kpi-info">
-            <h4 class="kpi-label">全站總瀏覽量</h4>
-            <p class="kpi-value" id="kpi-total-pv">0</p>
-            <span class="kpi-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i> 整合流量統計</span>
+          
+          <!-- Metric 2: Form Inquiries -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box bg-gradient-purple">
+              <i class="fa-regular fa-paper-plane"></i>
+            </div>
+            <div class="kpi-info">
+              <h4 class="kpi-label">收到商務詢問</h4>
+              <p class="kpi-value" id="kpi-total-inq">0</p>
+              <span class="kpi-trend trend-up"><i class="fa-solid fa-message"></i> 留言預約累計</span>
+            </div>
           </div>
-        </div>
-        
-        <!-- Metric 2: Form Inquiries -->
-        <div class="kpi-card">
-          <div class="kpi-icon-box bg-gradient-purple">
-            <i class="fa-regular fa-paper-plane"></i>
+          
+          <!-- Metric 3: vCard Downloads -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box bg-gradient-blue">
+              <i class="fa-solid fa-user-plus"></i>
+            </div>
+            <div class="kpi-info">
+              <h4 class="kpi-label">聯絡人儲存次數</h4>
+              <p class="kpi-value" id="kpi-vcard-clicks">0</p>
+              <span class="kpi-trend"><i class="fa-solid fa-circle-check"></i> vCard 點擊下載</span>
+            </div>
           </div>
-          <div class="kpi-info">
-            <h4 class="kpi-label">收到商務詢問</h4>
-            <p class="kpi-value" id="kpi-total-inq">0</p>
-            <span class="kpi-trend trend-up"><i class="fa-solid fa-message"></i> 留言預約累計</span>
+          
+          <!-- Metric 4: Short-cuts click-through rate -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box bg-gradient-teal">
+              <i class="fa-solid fa-share-nodes"></i>
+            </div>
+            <div class="kpi-info">
+              <h4 class="kpi-label">社群連結點擊</h4>
+              <p class="kpi-value" id="kpi-social-clicks">0</p>
+              <span class="kpi-trend"><i class="fa-solid fa-location-arrow"></i> LINE/電話/導航</span>
+            </div>
           </div>
-        </div>
-        
-        <!-- Metric 3: vCard Downloads -->
-        <div class="kpi-card">
-          <div class="kpi-icon-box bg-gradient-blue">
-            <i class="fa-solid fa-user-plus"></i>
-          </div>
-          <div class="kpi-info">
-            <h4 class="kpi-label">聯絡人儲存次數</h4>
-            <p class="kpi-value" id="kpi-vcard-clicks">0</p>
-            <span class="kpi-trend"><i class="fa-solid fa-circle-check"></i> vCard 點擊下載</span>
-          </div>
-        </div>
-        
-        <!-- Metric 4: Short-cuts click-through rate -->
-        <div class="kpi-card">
-          <div class="kpi-icon-box bg-gradient-teal">
-            <i class="fa-solid fa-share-nodes"></i>
-          </div>
-          <div class="kpi-info">
-            <h4 class="kpi-label">社群連結點擊</h4>
-            <p class="kpi-value" id="kpi-social-clicks">0</p>
-            <span class="kpi-trend"><i class="fa-solid fa-location-arrow"></i> LINE/電話/導航</span>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Charts Layout -->
-      <section class="charts-row">
-        <!-- SVG Line Chart for Page Views -->
-        <div class="chart-card flex-2">
-          <h3 class="chart-title"><i class="fa-solid fa-chart-area"></i> 近一週訪客瀏覽量趨勢</h3>
-          <div class="svg-chart-container" id="pv-trend-chart-box">
-            <!-- Dynamic SVG chart will be injected here by script -->
+        <!-- Charts Layout -->
+        <section class="charts-row">
+          <!-- SVG Line Chart for Page Views -->
+          <div class="chart-card flex-2">
+            <h3 class="chart-title"><i class="fa-solid fa-chart-area"></i> 近一週訪客瀏覽量趨勢</h3>
+            <div class="svg-chart-container" id="pv-trend-chart-box">
+              <!-- Dynamic SVG chart will be injected here by script -->
+            </div>
+            <div class="chart-legends">
+              <span class="legend-item"><span class="legend-dot color-website"></span> 官方網站首頁</span>
+              <span class="legend-item"><span class="legend-dot color-card"></span> Carol 數位名片</span>
+            </div>
           </div>
-          <div class="chart-legends">
-            <span class="legend-item"><span class="legend-dot color-website"></span> 官方網站首頁</span>
-            <span class="legend-item"><span class="legend-dot color-card"></span> Carol 數位名片</span>
+          
+          <!-- SVG Donut Chart for Social clicks distribution -->
+          <div class="chart-card flex-1">
+            <h3 class="chart-title"><i class="fa-solid fa-chart-pie"></i> 社群快捷鍵點擊分佈</h3>
+            <div class="svg-chart-container" id="clicks-pie-chart-box">
+              <!-- Dynamic SVG pie chart will be injected here -->
+            </div>
           </div>
-        </div>
-        
-        <!-- SVG Donut Chart for Social clicks distribution -->
-        <div class="chart-card flex-1">
-          <h3 class="chart-title"><i class="fa-solid fa-chart-pie"></i> 社群快捷鍵點擊分佈</h3>
-          <div class="svg-chart-container" id="clicks-pie-chart-box">
-            <!-- Dynamic SVG pie chart will be injected here -->
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      <!-- Inquiries Data Table Section -->
-      <section class="data-table-card" id="inquiries-section">
-        <div class="card-header-table">
-          <h3 class="table-title"><i class="fa-solid fa-envelope-open-text"></i> 預約留言管理名單</h3>
-          <div class="table-actions">
-            <!-- Filter by Source -->
-            <select id="filter-source" class="table-filter-select">
-              <option value="all">所有來源</option>
-              <option value="website">首頁諮詢</option>
-              <option value="card">名片留言</option>
-            </select>
+      <!-- Tab Content: Inquiries (預約留言管理) -->
+      <div id="inquiries-tab" class="tab-content">
+        <!-- Inquiries Data Table Section -->
+        <section class="data-table-card" id="inquiries-section">
+          <div class="card-header-table">
+            <h3 class="table-title"><i class="fa-solid fa-envelope-open-text"></i> 預約留言管理名單</h3>
+            <div class="table-actions">
+              <!-- Filter by Source -->
+              <select id="filter-source" class="table-filter-select">
+                <option value="all">所有來源</option>
+                <option value="website">首頁諮詢</option>
+                <option value="card">名片留言</option>
+              </select>
+            </div>
           </div>
-        </div>
-        
-        <div class="table-scroll-wrapper">
-          <table class="data-table" id="inquiries-table">
-            <thead>
-              <tr>
-                <th>提交日期</th>
-                <th>來源</th>
-                <th>聯絡姓名</th>
-                <th>電話號碼</th>
-                <th>電子信箱</th>
-                <th>諮詢項目</th>
-                <th>操作</th>
-              </tr>
-            </thead>
-            <tbody id="inquiries-table-body">
-              <!-- Submissions rows will be appended here dynamically -->
-            </tbody>
-          </table>
-        </div>
-        
-        <!-- Table empty state -->
-        <div class="table-empty-state" id="table-empty-state">
-          <i class="fa-regular fa-envelope"></i>
-          <p>目前尚無任何商務預約留言</p>
-        </div>
-      </section>
+          
+          <div class="table-scroll-wrapper">
+            <table class="data-table" id="inquiries-table">
+              <thead>
+                <tr>
+                  <th>提交日期</th>
+                  <th>來源</th>
+                  <th>聯絡姓名</th>
+                  <th>電話號碼</th>
+                  <th>電子信箱</th>
+                  <th>諮詢項目</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="inquiries-table-body">
+                <!-- Submissions rows will be appended here dynamically -->
+              </tbody>
+            </table>
+          </div>
+          
+          <!-- Table empty state -->
+          <div class="table-empty-state" id="table-empty-state">
+            <i class="fa-regular fa-envelope"></i>
+            <p>目前尚無任何商務預約留言</p>
+          </div>
+        </section>
+      </div>
 
     </main>
   </div>

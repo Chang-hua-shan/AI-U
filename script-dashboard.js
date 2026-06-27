@@ -143,6 +143,31 @@ function initDashboard() {
       renderInquiriesTable(e.target.value);
     });
   }
+
+  // 側邊欄分頁切換邏輯 (Tab Switching)
+  const menuItems = document.querySelectorAll('.sidebar-menu .menu-item');
+  menuItems.forEach(item => {
+    const targetId = item.getAttribute('href');
+    if (targetId && targetId.startsWith('#')) {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // 移除所有選單的 active 狀態
+        menuItems.forEach(mi => mi.classList.remove('active'));
+        // 為當前點選的選單加上 active
+        item.classList.add('active');
+        
+        // 隱藏所有分頁內容，並顯示目標分頁
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        const targetTab = document.getElementById(targetId.substring(1) + '-tab');
+        if (targetTab) {
+          targetTab.classList.add('active');
+        }
+      });
+    }
+  });
 }
 
 // 載入與計算數據

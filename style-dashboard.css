@@ -1207,3 +1207,26 @@ button {
     height: 28px;
   }
 }
+
+/* ==========================================================================
+   TAB PANEL SYSTEM (分頁切換系統)
+   ========================================================================== */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+  animation: dashboardTabFadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes dashboardTabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
