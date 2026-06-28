@@ -38,11 +38,42 @@
   --btn-secondary-bg: rgba(255, 255, 255, 0.5);
   --btn-secondary-border: rgba(233, 27, 98, 0.25);
   --btn-secondary-text: #E91B62;
+  --quick-link-bg: rgba(233, 27, 98, 0.03);
+  --quick-link-border: rgba(233, 27, 98, 0.08);
   
   /* Ambient glow spheres */
   --sphere-grad-1: radial-gradient(circle, rgba(233, 27, 98, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
   --sphere-grad-2: radial-gradient(circle, rgba(0, 180, 216, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
   --sphere-grad-3: radial-gradient(circle, rgba(233, 27, 98, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
+}
+
+body.dark-theme {
+  --bg-color: #0A0A0B;
+  --bg-gradient: linear-gradient(135deg, #0A0A0B 0%, #12050E 100%);
+  --card-bg: rgba(18, 18, 20, 0.85);
+  --card-border: rgba(233, 27, 98, 0.15);
+  --text-primary: #F5EEF0;
+  --text-secondary: #C3B4BD;
+  --text-muted: #7A6973;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --glow-color: rgba(233, 27, 98, 0.05);
+  --input-bg: rgba(0, 0, 0, 0.25);
+  --input-border: rgba(255, 255, 255, 0.1);
+  --btn-secondary-bg: rgba(255, 255, 255, 0.05);
+  --btn-secondary-border: rgba(255, 255, 255, 0.1);
+  --btn-secondary-text: #F5EEF0;
+  --quick-link-bg: rgba(255, 255, 255, 0.02);
+  --quick-link-border: rgba(255, 255, 255, 0.05);
+  --sphere-grad-1: radial-gradient(circle, rgba(233, 27, 98, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+  --sphere-grad-2: radial-gradient(circle, rgba(0, 180, 216, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+  --sphere-grad-3: radial-gradient(circle, rgba(233, 27, 98, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+body.dark-theme .chart-axis-line {
+  stroke: rgba(255, 255, 255, 0.1);
+}
+body.dark-theme .chart-grid-line {
+  stroke: rgba(255, 255, 255, 0.03);
 }
 
 /* ==========================================================================

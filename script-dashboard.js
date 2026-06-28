@@ -312,6 +312,37 @@ function initDashboard() {
       }
     });
   }
+
+  // 載入儲存的主題設定
+  const savedTheme = localStorage.getItem('dashboard_theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-theme');
+  }
+
+  // 系統設定頁面事件：切換深色/淺色主題
+  const toggleThemeBtnSetting = document.getElementById('btn-toggle-theme-setting');
+  if (toggleThemeBtnSetting) {
+    toggleThemeBtnSetting.addEventListener('click', () => {
+      document.body.classList.toggle('dark-theme');
+      const isDark = document.body.classList.contains('dark-theme');
+      localStorage.setItem('dashboard_theme', isDark ? 'dark' : 'light');
+      
+      // 動態更新圖表配色
+      loadDashboardData();
+    });
+  }
+
+  // 系統設定頁面事件：清除系統快取
+  const resetCacheBtnSetting = document.getElementById('btn-reset-cache-setting');
+  if (resetCacheBtnSetting) {
+    resetCacheBtnSetting.addEventListener('click', () => {
+      if (confirm('⚠️ 確定要清除所有快取與後台儲存的點閱統計嗎？這會清除 LocalStorage 中 AI+U 相關的所有資料。')) {
+        localStorage.clear();
+        alert('🧹 快取已全部清除，頁面即將重新載入。');
+        window.location.reload();
+      }
+    });
+  }
 }
 
 // 載入與計算數據
