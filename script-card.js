@@ -134,6 +134,11 @@ function applyLanguage(lang) {
     }
   });
 
+  // 3. 更新網頁 document lang 屬性
+  let langAttr = 'zh-Hant-TW';
+  if (lang === 'en') langAttr = 'en';
+  if (lang === 'cn') langAttr = 'zh-Hans-CN';
+  if (lang === 'ja') langAttr = 'ja';
   document.documentElement.lang = langAttr;
   
   // 4. 套用個性化設定，覆蓋翻譯庫中的預設名片資料
