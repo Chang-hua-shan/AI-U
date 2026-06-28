@@ -59,11 +59,17 @@
         <a href="#overview" class="menu-item active"><i class="fa-solid fa-chart-line"></i> 數據總覽</a>
         <a href="#inquiries" class="menu-item"><i class="fa-solid fa-envelope-open-text"></i> 預約留言管理</a>
         
-        <div class="sidebar-menu-divider" style="height: 1px; background: var(--card-border); margin: 12px 16px;"></div>
-        <div class="sidebar-menu-header" style="font-size: 11px; font-weight: 700; color: var(--text-muted); padding: 4px 20px; letter-spacing: 0.5px;">系統設定</div>
-        
-        <a href="#account" class="menu-item"><i class="fa-solid fa-shield-halved"></i> 帳號密碼</a>
-        <a href="#features" class="menu-item"><i class="fa-solid fa-sliders"></i> 功能設定</a>
+        <!-- Collapsible Settings Menu -->
+        <div class="menu-item-group">
+          <button type="button" class="menu-item menu-collapse-toggle" id="btn-settings-toggle">
+            <span><i class="fa-solid fa-gear"></i> 系統設定</span>
+            <i class="fa-solid fa-chevron-down toggle-arrow"></i>
+          </button>
+          <div class="sidebar-submenu" id="settings-submenu">
+            <a href="#account" class="submenu-item"><i class="fa-solid fa-shield-halved"></i> 帳號密碼</a>
+            <a href="#features" class="submenu-item"><i class="fa-solid fa-sliders"></i> 個性功能</a>
+          </div>
+        </div>
       </nav>
       
       <div class="sidebar-footer" style="display: flex; flex-direction: column; gap: 10px;">
@@ -251,11 +257,11 @@
         </section>
       </div>
 
-      <!-- Tab Content: Features Settings (功能設定) -->
+      <!-- Tab Content: Features Settings (個性功能) -->
       <div id="features-tab" class="tab-content">
         <section class="dashboard-card" style="max-width: 680px; margin: 0 auto; padding: 24px;">
           <div class="card-header" style="margin-bottom: 24px; border-bottom: 1px solid var(--card-border); padding-bottom: 16px;">
-            <h2 class="card-title"><i class="fa-solid fa-sliders" style="color: var(--primary-color); margin-right: 8px;"></i> 系統功能與外觀偏好</h2>
+            <h2 class="card-title"><i class="fa-solid fa-sliders" style="color: var(--primary-color); margin-right: 8px;"></i> 個性功能設定</h2>
             <p class="card-subtitle">設定您的數據中心展示主題、電子名片連結與快取控制</p>
           </div>
           

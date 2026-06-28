@@ -1391,24 +1391,85 @@ button {
   }
 }
 
-/* Settings Sub-Tab Navigation Responsive Layout */
-@media (max-width: 768px) {
-  .settings-layout {
-    flex-direction: column;
-    gap: 16px !important;
-  }
-  .settings-sub-nav {
-    width: 100% !important;
-    flex-direction: row !important;
-    border-right: none !important;
-    border-bottom: 1px solid var(--card-border) !important;
-    padding-right: 0 !important;
-    padding-bottom: 12px !important;
-    display: flex;
-    gap: 8px;
-  }
-  .settings-nav-btn {
-    flex: 1;
-    justify-content: center;
-  }
+/* ==========================================================================
+   SIDEBAR SUBMENU SYSTEM (側邊欄下拉子選單)
+   ========================================================================== */
+.menu-item-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.menu-collapse-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.sidebar-menu .menu-collapse-toggle {
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 13.5px;
+  text-align: left;
+}
+
+.menu-collapse-toggle span {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toggle-arrow {
+  font-size: 10px;
+  color: var(--text-muted);
+  transition: transform var(--transition-fast);
+}
+
+.menu-collapse-toggle.open .toggle-arrow {
+  transform: rotate(180deg);
+}
+
+.sidebar-submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 28px;
+  margin-top: 2px;
+}
+
+.sidebar-submenu.open {
+  max-height: 120px;
+  margin-bottom: 8px;
+}
+
+.submenu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--border-radius-md);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.submenu-item:hover {
+  background: var(--quick-link-bg);
+  color: var(--primary-color);
+}
+
+.submenu-item.active {
+  background: var(--primary-gradient);
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px var(--glow-primary);
 }

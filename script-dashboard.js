@@ -165,7 +165,27 @@ function initDashboard() {
   if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
   if (overlay) overlay.addEventListener('click', closeSidebar);
 
-  const menuItems = document.querySelectorAll('.sidebar-menu .menu-item');
+  // 側邊欄系統設定子選單開關與自動載入展開
+  const settingsToggle = document.getElementById('btn-settings-toggle');
+  const settingsSubmenu = document.getElementById('settings-submenu');
+  
+  if (settingsToggle && settingsSubmenu) {
+    settingsToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      settingsToggle.classList.toggle('open');
+      settingsSubmenu.classList.toggle('open');
+    });
+
+    // 載入網頁時，若 hash 為設定分頁則自動展開
+    const currentHash = window.location.hash;
+    if (currentHash === '#account' || currentHash === '#features') {
+      settingsToggle.classList.add('open');
+      settingsSubmenu.classList.add('open');
+    }
+  }
+
+  // 選擇所有切換分頁選單按鈕（排除設定大按鈕，包含子選單按鈕）
+  const menuItems = document.querySelectorAll('.sidebar-menu .menu-item:not(.menu-collapse-toggle), .sidebar-menu .submenu-item');
   menuItems.forEach(item => {
     const targetId = item.getAttribute('href');
     if (targetId && targetId.startsWith('#')) {
@@ -184,6 +204,12 @@ function initDashboard() {
         const targetTab = document.getElementById(targetId.substring(1) + '-tab');
         if (targetTab) {
           targetTab.classList.add('active');
+        }
+
+        // 如果點擊的是主選單項目（非設定子項目），自動收合設定子選單
+        if (!item.classList.contains('submenu-item') && settingsToggle && settingsSubmenu) {
+          settingsToggle.classList.remove('open');
+          settingsSubmenu.classList.remove('open');
         }
 
         // 行動版切換分頁後自動收合選單
