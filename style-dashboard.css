@@ -56,12 +56,19 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: var(--font-chinese);
   background: var(--bg-gradient, var(--bg-color));
   color: var(--text-primary);
   min-height: 100vh;
-  overflow-x: hidden;
   position: relative;
   line-height: 1.6;
 }
@@ -1177,6 +1184,9 @@ button {
 @media (max-width: 992px) {
   .dashboard-wrapper {
     flex-direction: column;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
   }
   
   .sidebar-overlay {
@@ -1275,6 +1285,9 @@ button {
   .dashboard-main {
     margin-left: 0;
     padding: 24px 16px;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
   }
   
   .main-header {
