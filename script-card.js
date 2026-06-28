@@ -106,7 +106,7 @@ function trackClick(eventKey) {
 }
 
 function initClickTracking() {
-  const vcardBtn = document.getElementById('btn-vcard');
+  const heroLineBtn = document.getElementById('btn-hero-line');
   const callBtn = document.getElementById('btn-call');
   const lineBtn = document.getElementById('btn-line');
   const mapBtn = document.getElementById('btn-map');
@@ -118,7 +118,7 @@ function initClickTracking() {
   const lineSocialBtn = document.getElementById('btn-social-line');
   const wechatBtn = document.getElementById('btn-social-wechat');
 
-  if (vcardBtn) vcardBtn.addEventListener('click', () => trackClick('vcard'));
+  if (heroLineBtn) heroLineBtn.addEventListener('click', () => trackClick('line'));
   if (callBtn) callBtn.addEventListener('click', () => trackClick('call'));
   if (lineBtn) lineBtn.addEventListener('click', () => trackClick('line'));
   if (mapBtn) mapBtn.addEventListener('click', () => trackClick('map'));
