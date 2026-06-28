@@ -58,7 +58,12 @@
       <nav class="sidebar-menu">
         <a href="#overview" class="menu-item active"><i class="fa-solid fa-chart-line"></i> 數據總覽</a>
         <a href="#inquiries" class="menu-item"><i class="fa-solid fa-envelope-open-text"></i> 預約留言管理</a>
-        <a href="#settings" class="menu-item"><i class="fa-solid fa-gear"></i> 系統設定</a>
+        
+        <div class="sidebar-menu-divider" style="height: 1px; background: var(--card-border); margin: 12px 16px;"></div>
+        <div class="sidebar-menu-header" style="font-size: 11px; font-weight: 700; color: var(--text-muted); padding: 4px 20px; letter-spacing: 0.5px;">系統設定</div>
+        
+        <a href="#account" class="menu-item"><i class="fa-solid fa-shield-halved"></i> 帳號密碼</a>
+        <a href="#features" class="menu-item"><i class="fa-solid fa-sliders"></i> 功能設定</a>
       </nav>
       
       <div class="sidebar-footer" style="display: flex; flex-direction: column; gap: 10px;">
@@ -213,113 +218,91 @@
         </section>
       </div>
 
-      <!-- Tab Content: Settings (系統設定) -->
-      <div id="settings-tab" class="tab-content">
-        <section class="dashboard-card" style="max-width: 800px; margin: 0 auto; padding: 24px;">
+      <!-- Tab Content: Account Settings (帳號密碼) -->
+      <div id="account-tab" class="tab-content">
+        <section class="dashboard-card" style="max-width: 600px; margin: 0 auto; padding: 24px;">
           <div class="card-header" style="margin-bottom: 24px; border-bottom: 1px solid var(--card-border); padding-bottom: 16px;">
-            <h2 class="card-title"><i class="fa-solid fa-gears" style="color: var(--primary-color); margin-right: 8px;"></i> 系統設定中心</h2>
-            <p class="card-subtitle">管理您的管理員帳戶、密碼安全與系統展示功能偏好</p>
+            <h2 class="card-title"><i class="fa-solid fa-shield-halved" style="color: var(--primary-color); margin-right: 8px;"></i> 帳號密碼設定</h2>
+            <p class="card-subtitle">管理您的管理員登入帳戶與後台安全密碼</p>
           </div>
           
-          <!-- Inner Settings Layout -->
-          <div class="settings-layout" style="display: flex; gap: 24px;">
-            <!-- Left Side: Settings Sub Navigation -->
-            <div class="settings-sub-nav" style="width: 180px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; border-right: 1px solid var(--card-border); padding-right: 16px;">
-              <button type="button" class="settings-nav-btn active" id="btn-sub-account" style="display: flex; align-items: center; gap: 8px; width: 100%; padding: 12px 14px; border: none; border-radius: var(--border-radius-md); background: var(--primary-gradient); color: #FFFFFF; font-size: 13px; font-weight: 700; cursor: pointer; text-align: left; transition: all var(--transition-fast); box-shadow: 0 4px 10px var(--glow-primary);">
-                <i class="fa-solid fa-shield-halved"></i> 帳號密碼
-              </button>
-              <button type="button" class="settings-nav-btn" id="btn-sub-features" style="display: flex; align-items: center; gap: 8px; width: 100%; padding: 12px 14px; border: 1px solid var(--card-border); border-radius: var(--border-radius-md); background: var(--btn-secondary-bg); color: var(--text-secondary); font-size: 13px; font-weight: 600; cursor: pointer; text-align: left; transition: all var(--transition-fast);">
-                <i class="fa-solid fa-sliders"></i> 功能設定
+          <form class="settings-form" style="display: flex; flex-direction: column; gap: 20px;">
+            <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+              <label class="form-label" style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">管理員帳號 (固定值)</label>
+              <input type="text" class="form-input" value="admin" style="width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--border-radius-md); padding: 10px 12px; color: var(--text-primary); font-size: 13.5px;" readonly>
+            </div>
+            
+            <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+              <label class="form-label" style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">後台管理密碼</label>
+              <div class="input-wrapper" style="position: relative; width: 100%;">
+                <input type="password" id="settings-admin-pass" class="form-input" value="aiu888" style="width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--border-radius-md); padding: 10px 36px 10px 12px; color: var(--text-primary); font-size: 13.5px;" readonly>
+                <i class="fa-solid fa-lock" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 12px;"></i>
+              </div>
+              <span style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">目前的管理員登入與解鎖密碼為：<strong>aiu888</strong></span>
+            </div>
+            
+            <div style="margin-top: 10px; background: rgba(233, 27, 98, 0.04); padding: 12px; border-radius: var(--border-radius-md); border: 1px dashed var(--card-border);">
+              <p style="font-size: 11.5px; color: var(--text-secondary); line-height: 1.5;">
+                <i class="fa-solid fa-circle-info" style="color: var(--primary-color); margin-right: 4px;"></i> 
+                此帳號密碼同時適用於「官方網站大數據後台」以及「電子名片內建後台」之登入驗證。
+              </p>
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <!-- Tab Content: Features Settings (功能設定) -->
+      <div id="features-tab" class="tab-content">
+        <section class="dashboard-card" style="max-width: 680px; margin: 0 auto; padding: 24px;">
+          <div class="card-header" style="margin-bottom: 24px; border-bottom: 1px solid var(--card-border); padding-bottom: 16px;">
+            <h2 class="card-title"><i class="fa-solid fa-sliders" style="color: var(--primary-color); margin-right: 8px;"></i> 系統功能與外觀偏好</h2>
+            <p class="card-subtitle">設定您的數據中心展示主題、電子名片連結與快取控制</p>
+          </div>
+          
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <!-- Theme Control -->
+            <div style="display: flex; justify-content: space-between; align-items: center; background: var(--quick-link-bg); padding: 12px 16px; border-radius: var(--border-radius-md); border: 1px solid var(--quick-link-border);">
+              <div>
+                <h4 style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px;">後台背景主題色</h4>
+                <p style="font-size: 11.5px; color: var(--text-muted);">切換數據中心的高質感深色/淺色主題外觀</p>
+              </div>
+              <button type="button" id="btn-toggle-theme-setting" style="background: var(--primary-gradient); color: #FFFFFF; border: none; border-radius: var(--border-radius-md); padding: 8px 14px; font-size: 12px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px var(--glow-primary);">
+                <i class="fa-solid fa-circle-half-stroke" style="margin-right: 6px;"></i> 切換淺色/深色
               </button>
             </div>
             
-            <!-- Right Side: Settings Sub Content -->
-            <div class="settings-sub-content" style="flex-grow: 1;">
-              
-              <!-- Sub Tab 1: Account & Password (帳號密碼) -->
-              <div id="sub-panel-account" class="settings-sub-panel active">
-                <h3 style="font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-                  <i class="fa-solid fa-key" style="color: var(--primary-color);"></i> 管理員帳號與密碼管理
-                </h3>
-                <div style="display: flex; flex-direction: column; gap: 16px;">
-                  <div class="form-group" style="display: flex; flex-direction: column; gap: 6px; max-width: 360px;">
-                    <label class="form-label" style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">登入帳號 (固定值)</label>
-                    <input type="text" class="form-input" value="admin" style="width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--border-radius-md); padding: 10px 12px; color: var(--text-primary); font-size: 13.5px;" readonly>
-                  </div>
-                  
-                  <div class="form-group" style="display: flex; flex-direction: column; gap: 6px; max-width: 360px;">
-                    <label class="form-label" style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">管理員密碼</label>
-                    <div class="input-wrapper" style="position: relative; width: 100%;">
-                      <input type="password" id="settings-admin-pass" class="form-input" value="aiu888" style="width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--border-radius-md); padding: 10px 36px 10px 12px; color: var(--text-primary); font-size: 13.5px;" readonly>
-                      <i class="fa-solid fa-lock" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 12px;"></i>
-                    </div>
-                    <span style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">目前的管理員登入與解鎖密碼為：<strong>aiu888</strong></span>
-                  </div>
-                  
-                  <div style="margin-top: 10px; background: rgba(233, 27, 98, 0.04); padding: 12px; border-radius: var(--border-radius-md); border: 1px dashed var(--card-border); max-width: 480px;">
-                    <p style="font-size: 11.5px; color: var(--text-secondary); line-height: 1.5;">
-                      <i class="fa-solid fa-circle-info" style="color: var(--primary-color); margin-right: 4px;"></i> 
-                      此帳號密碼同時適用於「官方網站大數據後台」以及「電子名片內建後台」之登入驗證。
-                    </p>
-                  </div>
+            <!-- Basic Info Display -->
+            <div style="background: var(--quick-link-bg); padding: 16px; border-radius: var(--border-radius-md); border: 1px solid var(--quick-link-border);">
+              <h4 style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px;">電子名片基本連結資訊 (唯讀展示)</h4>
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                <div>
+                  <span style="font-size: 11px; color: var(--text-muted);">綁定姓名</span>
+                  <p style="font-size: 12.5px; font-weight: 600; color: var(--text-primary); margin-top: 2px;">Carol 吳凱若</p>
+                </div>
+                <div>
+                  <span style="font-size: 11px; color: var(--text-muted);">專業職稱</span>
+                  <p style="font-size: 12.5px; font-weight: 600; color: var(--text-primary); margin-top: 2px;">CEO 執行長</p>
+                </div>
+                <div>
+                  <span style="font-size: 11px; color: var(--text-muted);">行動電話</span>
+                  <p style="font-size: 12.5px; font-weight: 600; color: var(--text-primary); margin-top: 2px;">0955-752068</p>
+                </div>
+                <div>
+                  <span style="font-size: 11px; color: var(--text-muted);">電子郵件</span>
+                  <p style="font-size: 12.5px; font-weight: 600; color: var(--text-primary); margin-top: 2px;">wcr830@gmail.com</p>
                 </div>
               </div>
-              
-              <!-- Sub Tab 2: Features (功能設定) -->
-              <div id="sub-panel-features" class="settings-sub-panel" style="display: none;">
-                <h3 style="font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-                  <i class="fa-solid fa-screwdriver-wrench" style="color: var(--primary-color);"></i> 系統功能與外觀偏好
-                </h3>
-                <div style="display: flex; flex-direction: column; gap: 16px;">
-                  
-                  <!-- Theme Control -->
-                  <div style="display: flex; justify-content: space-between; align-items: center; background: var(--quick-link-bg); padding: 12px 16px; border-radius: var(--border-radius-md); border: 1px solid var(--quick-link-border);">
-                    <div>
-                      <h4 style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px;">後台背景主題色</h4>
-                      <p style="font-size: 11.5px; color: var(--text-muted);">切換數據中心的高質感深色/淺色主題外觀</p>
-                    </div>
-                    <button type="button" id="btn-toggle-theme-setting" style="background: var(--primary-gradient); color: #FFFFFF; border: none; border-radius: var(--border-radius-md); padding: 8px 14px; font-size: 12px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px var(--glow-primary);">
-                      <i class="fa-solid fa-circle-half-stroke" style="margin-right: 6px;"></i> 切換淺色/深色
-                    </button>
-                  </div>
-                  
-                  <!-- Basic Info Display -->
-                  <div style="background: var(--quick-link-bg); padding: 16px; border-radius: var(--border-radius-md); border: 1px solid var(--quick-link-border);">
-                    <h4 style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px;">電子名片基本連結資訊 (唯讀展示)</h4>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-                      <div>
-                        <span style="font-size: 11px; color: var(--text-muted);">綁定姓名</span>
-                        <p style="font-size: 12.5px; font-weight: 600; color: var(--text-primary); margin-top: 2px;">Carol 吳凱若</p>
-                      </div>
-                      <div>
-                        <span style="font-size: 11px; color: var(--text-muted);">專業職稱</span>
-                        <p style="font-size: 12.5px; font-weight: 600; color: var(--text-primary); margin-top: 2px;">CEO 執行長</p>
-                      </div>
-                      <div>
-                        <span style="font-size: 11px; color: var(--text-muted);">行動電話</span>
-                        <p style="font-size: 12.5px; font-weight: 600; color: var(--text-primary); margin-top: 2px;">0955-752068</p>
-                      </div>
-                      <div>
-                        <span style="font-size: 11px; color: var(--text-muted);">電子郵件</span>
-                        <p style="font-size: 12.5px; font-weight: 600; color: var(--text-primary); margin-top: 2px;">wcr830@gmail.com</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <!-- Reset Cache -->
-                  <div style="display: flex; justify-content: space-between; align-items: center; background: var(--quick-link-bg); padding: 12px 16px; border-radius: var(--border-radius-md); border: 1px solid var(--quick-link-border);">
-                    <div>
-                      <h4 style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px;">系統快取清除</h4>
-                      <p style="font-size: 11.5px; color: var(--text-muted);">重置此裝置瀏覽器儲存之所有測試快取與模擬數據</p>
-                    </div>
-                    <button type="button" id="btn-reset-cache-setting" style="background: none; border: 1px solid rgba(255, 59, 48, 0.4); color: #ff3b30; border-radius: var(--border-radius-md); padding: 8px 14px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all var(--transition-fast);">
-                      <i class="fa-solid fa-trash-can" style="margin-right: 6px;"></i> 清除瀏覽快取
-                    </button>
-                  </div>
-                  
-                </div>
+            </div>
+            
+            <!-- Reset Cache -->
+            <div style="display: flex; justify-content: space-between; align-items: center; background: var(--quick-link-bg); padding: 12px 16px; border-radius: var(--border-radius-md); border: 1px solid var(--quick-link-border);">
+              <div>
+                <h4 style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px;">系統快取清除</h4>
+                <p style="font-size: 11.5px; color: var(--text-muted);">重置此裝置瀏覽器儲存之所有測試快取與模擬數據</p>
               </div>
-              
+              <button type="button" id="btn-reset-cache-setting" style="background: none; border: 1px solid rgba(255, 59, 48, 0.4); color: #ff3b30; border-radius: var(--border-radius-md); padding: 8px 14px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all var(--transition-fast);">
+                <i class="fa-solid fa-trash-can" style="margin-right: 6px;"></i> 清除瀏覽快取
+              </button>
             </div>
           </div>
         </section>
