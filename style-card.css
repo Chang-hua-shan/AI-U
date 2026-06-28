@@ -1561,3 +1561,79 @@ body.dark-theme .admin-sidebar-close {
     transform: translateY(0);
   }
 }
+
+/* ==========================================================================
+   SOCIAL MEDIA LIST SECTION (社群媒體列表)
+   ========================================================================== */
+.social-links-list-section {
+  margin-bottom: 24px;
+}
+
+.social-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.social-list-item {
+  width: 100%;
+  height: 52px;
+  background: var(--quick-link-bg);
+  border: 1px solid var(--quick-link-border);
+  border-radius: var(--border-radius-md);
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.social-list-item:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 12px var(--glow-color);
+}
+
+.social-list-item:active {
+  transform: translateY(0);
+}
+
+.social-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.social-icon-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
+  font-size: 14px;
+}
+
+.fb-color { background: #1877F2; }
+.ig-color { background: linear-gradient(45deg, #F09433 0%, #E6683C 25%, #DC2743 50%, #CC2366 75%, #BC1888 100%); }
+.line-color { background: #06C755; }
+.wechat-color { background: #07C160; }
+
+.social-item-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.social-chevron {
+  color: var(--text-muted);
+  font-size: 12px;
+  transition: color var(--transition-fast);
+}
+
+.social-list-item:hover .social-chevron {
+  color: var(--primary-color);
+}

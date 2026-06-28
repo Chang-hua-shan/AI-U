@@ -112,11 +112,45 @@ function initClickTracking() {
   const mapBtn = document.getElementById('btn-map');
   const emailBtn = document.getElementById('btn-email');
 
+  // 新增的社群媒體連結
+  const fbBtn = document.getElementById('btn-social-fb');
+  const igBtn = document.getElementById('btn-social-ig');
+  const lineSocialBtn = document.getElementById('btn-social-line');
+  const wechatBtn = document.getElementById('btn-social-wechat');
+
   if (vcardBtn) vcardBtn.addEventListener('click', () => trackClick('vcard'));
   if (callBtn) callBtn.addEventListener('click', () => trackClick('call'));
   if (lineBtn) lineBtn.addEventListener('click', () => trackClick('line'));
   if (mapBtn) mapBtn.addEventListener('click', () => trackClick('map'));
   if (emailBtn) emailBtn.addEventListener('click', () => trackClick('email'));
+
+  if (fbBtn) fbBtn.addEventListener('click', () => trackClick('fb'));
+  if (igBtn) igBtn.addEventListener('click', () => trackClick('ig'));
+  if (lineSocialBtn) lineSocialBtn.addEventListener('click', () => trackClick('line'));
+  if (wechatBtn) {
+    wechatBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      trackClick('wechat');
+      
+      const wechatId = 'wcr830';
+      navigator.clipboard.writeText(wechatId).then(() => {
+        // 彈出自訂 Toast 提示
+        const toast = document.getElementById('toast-notification');
+        if (toast) {
+          const toastIcon = toast.querySelector('.toast-icon');
+          const toastMessage = toast.querySelector('.toast-message');
+          if (toastIcon) toastIcon.className = 'fa-solid fa-copy toast-icon';
+          if (toastMessage) toastMessage.textContent = '微信帳號 (wcr830) 已複製！';
+          toast.classList.add('show');
+          setTimeout(() => {
+            toast.classList.remove('show');
+          }, 3500);
+        }
+      }).catch(err => {
+        console.error('無法複製 WeChat ID:', err);
+      });
+    });
+  }
 }
 
 /* ==========================================================================
