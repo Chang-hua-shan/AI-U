@@ -343,6 +343,40 @@ function initDashboard() {
       }
     });
   }
+
+  // 系統設定子分頁切換邏輯 (Inner Settings Sub-Tabs)
+  const subBtnAccount = document.getElementById('btn-sub-account');
+  const subBtnFeatures = document.getElementById('btn-sub-features');
+  const subPanelAccount = document.getElementById('sub-panel-account');
+  const subPanelFeatures = document.getElementById('sub-panel-features');
+
+  if (subBtnAccount && subBtnFeatures && subPanelAccount && subPanelFeatures) {
+    const activeSubStyle = (activeBtn, inactiveBtn) => {
+      activeBtn.style.background = 'var(--primary-gradient)';
+      activeBtn.style.color = '#FFFFFF';
+      activeBtn.style.border = 'none';
+      activeBtn.style.boxShadow = '0 4px 10px var(--glow-primary)';
+      activeBtn.style.fontWeight = '700';
+
+      inactiveBtn.style.background = 'var(--btn-secondary-bg)';
+      inactiveBtn.style.color = 'var(--text-secondary)';
+      inactiveBtn.style.border = '1px solid var(--card-border)';
+      inactiveBtn.style.boxShadow = 'none';
+      inactiveBtn.style.fontWeight = '600';
+    };
+
+    subBtnAccount.addEventListener('click', () => {
+      subPanelAccount.style.display = 'block';
+      subPanelFeatures.style.display = 'none';
+      activeSubStyle(subBtnAccount, subBtnFeatures);
+    });
+
+    subBtnFeatures.addEventListener('click', () => {
+      subPanelAccount.style.display = 'none';
+      subPanelFeatures.style.display = 'block';
+      activeSubStyle(subBtnFeatures, subBtnAccount);
+    });
+  }
 }
 
 // 載入與計算數據

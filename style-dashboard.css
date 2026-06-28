@@ -1390,3 +1390,25 @@ button {
     transform: translateY(0);
   }
 }
+
+/* Settings Sub-Tab Navigation Responsive Layout */
+@media (max-width: 768px) {
+  .settings-layout {
+    flex-direction: column;
+    gap: 16px !important;
+  }
+  .settings-sub-nav {
+    width: 100% !important;
+    flex-direction: row !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--card-border) !important;
+    padding-right: 0 !important;
+    padding-bottom: 12px !important;
+    display: flex;
+    gap: 8px;
+  }
+  .settings-nav-btn {
+    flex: 1;
+    justify-content: center;
+  }
+}
