@@ -90,6 +90,7 @@ body.light-theme {
 html, body {
   overflow-x: hidden;
   width: 100%;
+  overscroll-behavior-y: none; /* Prevents mobile rubber-band bounce lag and pull-to-refresh */
 }
 
 body {
@@ -133,6 +134,12 @@ button {
   pointer-events: none;
   opacity: 0.85; /* Increased opacity for high-luminosity */
   transition: background var(--transition-slow);
+  /* GPU Hardware Acceleration to prevent scroll lag with blur filters */
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .sphere-1 {
