@@ -259,59 +259,127 @@
 
       <!-- Tab Content: Features Settings (個性功能) -->
       <div id="features-tab" class="tab-content">
-        <section class="dashboard-card" style="max-width: 680px; margin: 0 auto; padding: 24px;">
-          <div class="card-header" style="margin-bottom: 24px; border-bottom: 1px solid var(--card-border); padding-bottom: 16px;">
-            <h2 class="card-title"><i class="fa-solid fa-sliders" style="color: var(--primary-color); margin-right: 8px;"></i> 個性功能設定</h2>
-            <p class="card-subtitle">設定您的數據中心展示主題、電子名片連結與快取控制</p>
+        <div class="features-split-container" style="display: flex; gap: 24px; align-items: flex-start; max-width: 1100px; margin: 0 auto;">
+          
+          <!-- Left Column: Settings Form -->
+          <div class="features-settings-panel" style="flex: 1; min-width: 0;">
+            <section class="dashboard-card" style="padding: 24px;">
+              <div class="card-header" style="margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 12px;">
+                <h2 class="card-title"><i class="fa-solid fa-sliders" style="color: var(--primary-color); margin-right: 8px;"></i> 個性功能設定</h2>
+                <p class="card-subtitle">填寫您的電子名片聯繫管道，設定將即時同步至右側預覽與名片頁面</p>
+              </div>
+              
+              <form id="form-features-settings" style="display: flex; flex-direction: column; gap: 16px;">
+                <!-- Section 1: Basic Info -->
+                <div class="settings-sub-group">
+                  <h3 style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-user-gear" style="color: var(--primary-color);"></i> 基本職稱與姓名
+                  </h3>
+                  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">名片姓名</label>
+                      <input type="text" id="input-card-name" class="form-input" style="width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--border-radius-md); padding: 8px 10px; color: var(--text-primary); font-size: 13px;" placeholder="例如：Carol 吳凱若">
+                    </div>
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">專業職稱</label>
+                      <input type="text" id="input-card-title" class="form-input" style="width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--border-radius-md); padding: 8px 10px; color: var(--text-primary); font-size: 13px;" placeholder="例如：CEO 執行長">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 2: Quick Links -->
+                <div class="settings-sub-group" style="border-top: 1px solid var(--card-border); padding-top: 16px;">
+                  <h3 style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-phone" style="color: var(--primary-color);"></i> 基礎聯繫管道
+                  </h3>
+                  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">行動電話</label>
+                      <input type="text" id="input-card-phone" class="form-input" style="width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--border-radius-md); padding: 8px 10px; color: var(--text-primary); font-size: 13px;" placeholder="例如：0955752068">
+                    </div>
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">電子信箱</label>
+                      <input type="email" id="input-card-email" class="form-input" style="width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--border-radius-md); padding: 8px 10px; color: var(--text-primary); font-size: 13px;" placeholder="例如：wcr830@gmail.com">
+                    </div>
+                  </div>
+                  <div class="form-group" style="display: flex; flex-direction: column; gap: 4px; margin-top: 10px;">
+                    <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">服務地址</label>
+                    <input type="text" id="input-card-address" class="form-input" style="width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--border-radius-md); padding: 8px 10px; color: var(--text-primary); font-size: 13px;" placeholder="例如：台北市忠孝東路二段118號5樓">
+                  </div>
+                </div>
+
+                <!-- Section 3: Social Links -->
+                <div class="settings-sub-group" style="border-top: 1px solid var(--card-border); padding-top: 16px;">
+                  <h3 style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-share-nodes" style="color: var(--primary-color);"></i> 社群媒體連結
+                  </h3>
+                  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">LINE 連結 URL</label>
+                      <input type="url" id="input-card-line" class="form-input" style="width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--border-radius-md); padding: 8px 10px; color: var(--text-primary); font-size: 13px;" placeholder="https://line.me/ti/p/...">
+                    </div>
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">WeChat 微信帳號 (ID)</label>
+                      <input type="text" id="input-card-wechat" class="form-input" style="width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--border-radius-md); padding: 8px 10px; color: var(--text-primary); font-size: 13px;" placeholder="例如：wcr830">
+                    </div>
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">Facebook 連結 URL</label>
+                      <input type="url" id="input-card-fb" class="form-input" style="width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--border-radius-md); padding: 8px 10px; color: var(--text-primary); font-size: 13px;" placeholder="https://facebook.com/...">
+                    </div>
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">Instagram 連結 URL</label>
+                      <input type="url" id="input-card-ig" class="form-input" style="width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--border-radius-md); padding: 8px 10px; color: var(--text-primary); font-size: 13px;" placeholder="https://instagram.com/...">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Theme and cache settings grouped in settings tab -->
+                <div class="settings-sub-group" style="border-top: 1px solid var(--card-border); padding-top: 16px;">
+                  <h3 style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-palette" style="color: var(--primary-color);"></i> 後台展示偏好
+                  </h3>
+                  <div style="display: flex; gap: 12px;">
+                    <button type="button" id="btn-toggle-theme-setting" style="flex: 1; background: var(--quick-link-bg); border: 1px solid var(--quick-link-border); color: var(--text-primary); border-radius: var(--border-radius-md); padding: 10px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 6px;">
+                      <i class="fa-solid fa-circle-half-stroke"></i> 切換深淺主題
+                    </button>
+                    <button type="button" id="btn-reset-cache-setting" style="flex: 1; background: none; border: 1px solid rgba(255, 59, 48, 0.2); color: #ff3b30; border-radius: var(--border-radius-md); padding: 10px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 6px;">
+                      <i class="fa-solid fa-trash-can"></i> 清除系統快取
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Save Action Button -->
+                <div style="margin-top: 8px;">
+                  <button type="submit" id="btn-save-features" style="width: 100%; background: var(--primary-gradient); color: #FFFFFF; border: none; border-radius: var(--border-radius-md); padding: 12px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 24px var(--glow-primary); display: flex; justify-content: center; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-floppy-disk"></i> 儲存名片設定
+                  </button>
+                </div>
+              </form>
+            </section>
           </div>
           
-          <div style="display: flex; flex-direction: column; gap: 16px;">
-            <!-- Theme Control -->
-            <div style="display: flex; justify-content: space-between; align-items: center; background: var(--quick-link-bg); padding: 12px 16px; border-radius: var(--border-radius-md); border: 1px solid var(--quick-link-border);">
-              <div>
-                <h4 style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px;">後台背景主題色</h4>
-                <p style="font-size: 11.5px; color: var(--text-muted);">切換數據中心的高質感深色/淺色主題外觀</p>
-              </div>
-              <button type="button" id="btn-toggle-theme-setting" style="background: var(--primary-gradient); color: #FFFFFF; border: none; border-radius: var(--border-radius-md); padding: 8px 14px; font-size: 12px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px var(--glow-primary);">
-                <i class="fa-solid fa-circle-half-stroke" style="margin-right: 6px;"></i> 切換淺色/深色
-              </button>
+          <!-- Right Column: Card Preview Frame (Sleek Phone Frame) -->
+          <div class="features-preview-panel" style="width: 340px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+            <div class="preview-header-label" style="font-size: 12px; font-weight: 700; color: var(--text-muted); display: flex; align-items: center; gap: 6px;">
+              <i class="fa-solid fa-mobile-screen"></i> 即時名片效果預覽
             </div>
             
-            <!-- Basic Info Display -->
-            <div style="background: var(--quick-link-bg); padding: 16px; border-radius: var(--border-radius-md); border: 1px solid var(--quick-link-border);">
-              <h4 style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px;">電子名片基本連結資訊 (唯讀展示)</h4>
-              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-                <div>
-                  <span style="font-size: 11px; color: var(--text-muted);">綁定姓名</span>
-                  <p style="font-size: 12.5px; font-weight: 600; color: var(--text-primary); margin-top: 2px;">Carol 吳凱若</p>
-                </div>
-                <div>
-                  <span style="font-size: 11px; color: var(--text-muted);">專業職稱</span>
-                  <p style="font-size: 12.5px; font-weight: 600; color: var(--text-primary); margin-top: 2px;">CEO 執行長</p>
-                </div>
-                <div>
-                  <span style="font-size: 11px; color: var(--text-muted);">行動電話</span>
-                  <p style="font-size: 12.5px; font-weight: 600; color: var(--text-primary); margin-top: 2px;">0955-752068</p>
-                </div>
-                <div>
-                  <span style="font-size: 11px; color: var(--text-muted);">電子郵件</span>
-                  <p style="font-size: 12.5px; font-weight: 600; color: var(--text-primary); margin-top: 2px;">wcr830@gmail.com</p>
-                </div>
+            <!-- Phone Bezel Container -->
+            <div class="phone-bezel" style="width: 320px; height: 580px; border-radius: 36px; border: 12px solid #1C0812; background: #FFF2F6; box-shadow: 0 24px 64px rgba(0,0,0,0.15), 0 0 0 1px rgba(233,27,98,0.1); overflow: hidden; position: relative;">
+              <!-- Phone Status Bar / Notch mockup -->
+              <div class="phone-notch" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 140px; height: 20px; background: #1C0812; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; z-index: 1000; display: flex; justify-content: center; align-items: center;">
+                <div class="phone-camera" style="width: 8px; height: 8px; border-radius: 50%; background: #1a1a1a; margin-left: 20px;"></div>
               </div>
+              <!-- Real Interactive Iframe pointing to card.html -->
+              <iframe id="card-preview-iframe" src="card.html" style="width: 100%; height: 100%; border: none; overflow-x: hidden;" scrolling="yes"></iframe>
             </div>
             
-            <!-- Reset Cache -->
-            <div style="display: flex; justify-content: space-between; align-items: center; background: var(--quick-link-bg); padding: 12px 16px; border-radius: var(--border-radius-md); border: 1px solid var(--quick-link-border);">
-              <div>
-                <h4 style="font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px;">系統快取清除</h4>
-                <p style="font-size: 11.5px; color: var(--text-muted);">重置此裝置瀏覽器儲存之所有測試快取與模擬數據</p>
-              </div>
-              <button type="button" id="btn-reset-cache-setting" style="background: none; border: 1px solid rgba(255, 59, 48, 0.4); color: #ff3b30; border-radius: var(--border-radius-md); padding: 8px 14px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all var(--transition-fast);">
-                <i class="fa-solid fa-trash-can" style="margin-right: 6px;"></i> 清除瀏覽快取
-              </button>
-            </div>
+            <p style="font-size: 11px; color: var(--text-muted); text-align: center; line-height: 1.4; padding: 0 10px;">
+              提示：此處展示的為真實電子名片，左方儲存後右方手機預覽會同步刷新，點擊名片中各連結可直接進行測試。
+            </p>
           </div>
-        </section>
+          
+        </div>
       </div>
 
     </main>

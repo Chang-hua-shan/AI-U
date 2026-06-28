@@ -370,6 +370,60 @@ function initDashboard() {
     });
   }
 
+  // 初始化個性功能設定欄位與即時預約同步
+  initFeaturesSettings();
+}
+
+/**
+ * 4. 個性功能設定欄位讀取與儲存同步 (Dynamic Card Customization Form)
+ */
+function initFeaturesSettings() {
+  const formName = document.getElementById('input-card-name');
+  const formTitle = document.getElementById('input-card-title');
+  const formPhone = document.getElementById('input-card-phone');
+  const formEmail = document.getElementById('input-card-email');
+  const formAddress = document.getElementById('input-card-address');
+  const formLine = document.getElementById('input-card-line');
+  const formWechat = document.getElementById('input-card-wechat');
+  const formFb = document.getElementById('input-card-fb');
+  const formIg = document.getElementById('input-card-ig');
+  const settingsForm = document.getElementById('form-features-settings');
+
+  // 載入 localStorage 既存設定或填入預設 Carol 的資訊
+  if (formName) formName.value = localStorage.getItem('aiu_card_name') || 'Carol 吳凱若';
+  if (formTitle) formTitle.value = localStorage.getItem('aiu_card_title') || 'CEO 執行長';
+  if (formPhone) formPhone.value = localStorage.getItem('aiu_card_phone') || '0955752068';
+  if (formEmail) formEmail.value = localStorage.getItem('aiu_card_email') || 'wcr830@gmail.com';
+  if (formAddress) formAddress.value = localStorage.getItem('aiu_card_address') || '台北市忠孝東路二段118號5樓';
+  if (formLine) formLine.value = localStorage.getItem('aiu_card_line') || 'https://line.me/ti/p/~wcr830';
+  if (formWechat) formWechat.value = localStorage.getItem('aiu_card_wechat') || 'wcr830';
+  if (formFb) formFb.value = localStorage.getItem('aiu_card_fb') || 'https://facebook.com';
+  if (formIg) formIg.value = localStorage.getItem('aiu_card_ig') || 'https://instagram.com';
+
+  if (settingsForm) {
+    settingsForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // 寫入 localStorage 儲存
+      localStorage.setItem('aiu_card_name', formName.value);
+      localStorage.setItem('aiu_card_title', formTitle.value);
+      localStorage.setItem('aiu_card_phone', formPhone.value);
+      localStorage.setItem('aiu_card_email', formEmail.value);
+      localStorage.setItem('aiu_card_address', formAddress.value);
+      localStorage.setItem('aiu_card_line', formLine.value);
+      localStorage.setItem('aiu_card_wechat', formWechat.value);
+      localStorage.setItem('aiu_card_fb', formFb.value);
+      localStorage.setItem('aiu_card_ig', formIg.value);
+
+      alert('💾 個性功能設定已成功儲存！已即時同步至您的電子名片中。');
+      
+      // 重載右側 iframe 電子名片預覽畫面
+      const previewIframe = document.getElementById('card-preview-iframe');
+      if (previewIframe) {
+        previewIframe.contentWindow.location.reload();
+      }
+    });
+  }
 }
 
 // 載入與計算數據

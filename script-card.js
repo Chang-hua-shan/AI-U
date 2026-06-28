@@ -7,12 +7,82 @@ let currentLang = 'zh';
 document.addEventListener('DOMContentLoaded', () => {
   trackPageView('card');
   initTheme();
+  initCustomProfile();
   initLanguage();
   initClickTracking();
   initShareModal();
   initContactForm();
   initAdminPanel();
 });
+
+/* ==========================================================================
+   0. 讀取並同步個性化設定的電子名片資訊 (Dynamic Settings Sync)
+   ========================================================================== */
+function initCustomProfile() {
+  const customName = localStorage.getItem('aiu_card_name');
+  const customTitle = localStorage.getItem('aiu_card_title');
+  const customPhone = localStorage.getItem('aiu_card_phone');
+  const customEmail = localStorage.getItem('aiu_card_email');
+  const customLine = localStorage.getItem('aiu_card_line');
+  const customFb = localStorage.getItem('aiu_card_fb');
+  const customIg = localStorage.getItem('aiu_card_ig');
+  const customWechat = localStorage.getItem('aiu_card_wechat');
+  const customAddress = localStorage.getItem('aiu_card_address');
+
+  if (customName) {
+    const el = document.querySelector('.profile-name');
+    if (el) el.textContent = customName;
+  }
+  if (customTitle) {
+    const el = document.querySelector('.profile-title');
+    if (el) el.textContent = customTitle;
+  }
+  
+  if (customPhone) {
+    const callBtn = document.getElementById('btn-call');
+    if (callBtn) {
+      callBtn.setAttribute('href', 'tel:' + customPhone);
+    }
+  }
+  
+  if (customEmail) {
+    const emailBtn = document.getElementById('btn-email');
+    if (emailBtn) {
+      emailBtn.setAttribute('href', 'mailto:' + customEmail);
+    }
+  }
+  
+  if (customLine) {
+    const heroLine = document.getElementById('btn-hero-line');
+    if (heroLine) heroLine.setAttribute('href', customLine);
+    
+    const quickLine = document.getElementById('btn-line');
+    if (quickLine) quickLine.setAttribute('href', customLine);
+    
+    const socialLine = document.getElementById('btn-social-line');
+    if (socialLine) socialLine.setAttribute('href', customLine);
+  }
+  
+  if (customFb) {
+    const fbBtn = document.getElementById('btn-social-fb');
+    if (fbBtn) fbBtn.setAttribute('href', customFb);
+  }
+  
+  if (customIg) {
+    const igBtn = document.getElementById('btn-social-ig');
+    if (igBtn) igBtn.setAttribute('href', customIg);
+  }
+  
+  if (customWechat) {
+    const wechatName = document.querySelector('#btn-social-wechat .social-item-name');
+    if (wechatName) wechatName.textContent = 'WeChat 微信聯絡 (' + customWechat + ')';
+  }
+  
+  if (customAddress) {
+    const addressValue = document.querySelector('[data-i18n="address_value"]');
+    if (addressValue) addressValue.textContent = customAddress;
+  }
+}
 
 /* ==========================================================================
    00. 多國語言翻譯邏輯 (Language Switcher)
@@ -132,7 +202,7 @@ function initClickTracking() {
       e.preventDefault();
       trackClick('wechat');
       
-      const wechatId = 'wcr830';
+      const wechatId = localStorage.getItem('aiu_card_wechat') || 'wcr830';
       navigator.clipboard.writeText(wechatId).then(() => {
         // 彈出自訂 Toast 提示
         const toast = document.getElementById('toast-notification');
@@ -140,7 +210,7 @@ function initClickTracking() {
           const toastIcon = toast.querySelector('.toast-icon');
           const toastMessage = toast.querySelector('.toast-message');
           if (toastIcon) toastIcon.className = 'fa-solid fa-copy toast-icon';
-          if (toastMessage) toastMessage.textContent = '微信帳號 (wcr830) 已複製！';
+          if (toastMessage) toastMessage.textContent = `微信帳號 (${wechatId}) 已複製！`;
           toast.classList.add('show');
           setTimeout(() => {
             toast.classList.remove('show');

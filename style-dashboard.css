@@ -1473,3 +1473,18 @@ button {
   color: #FFFFFF;
   box-shadow: 0 4px 10px var(--glow-primary);
 }
+
+/* Features Split Container for Settings Tab */
+@media (max-width: 992px) {
+  .features-split-container {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  .features-settings-panel {
+    width: 100% !important;
+  }
+  .features-preview-panel {
+    width: 100% !important;
+    margin-top: 24px !important;
+  }
+}
