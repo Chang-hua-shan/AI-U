@@ -90,7 +90,6 @@ body.light-theme {
 html, body {
   overflow-x: hidden;
   width: 100%;
-  overscroll-behavior-y: none; /* Prevents mobile rubber-band bounce lag and pull-to-refresh */
 }
 
 body {
