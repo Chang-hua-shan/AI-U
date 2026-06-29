@@ -73,9 +73,9 @@ function initCustomProfile() {
     if (igBtn) igBtn.setAttribute('href', customIg);
   }
   
-  if (customWechat) {
-    const wechatName = document.querySelector('#btn-social-wechat .social-item-name');
-    if (wechatName) wechatName.textContent = 'WeChat 微信聯絡 (' + customWechat + ')';
+  const wechatName = document.querySelector('#btn-social-wechat .social-item-name');
+  if (wechatName) {
+    wechatName.textContent = 'WeChat 微信聯絡';
   }
   
   if (customAddress) {
