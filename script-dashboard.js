@@ -415,15 +415,97 @@ function initFeaturesSettings() {
       localStorage.setItem('aiu_card_fb', formFb.value);
       localStorage.setItem('aiu_card_ig', formIg.value);
 
-      alert('💾 個性功能設定已成功儲存！已即時同步至您的電子名片中。');
-      
-      // 重載右側 iframe 電子名片預覽畫面
+      // 1. 即時同步更新右側 iframe 畫面（附加時間戳記強制刷新，防快取）
       const previewIframe = document.getElementById('card-preview-iframe');
-      if (previewIframe) {
-        previewIframe.contentWindow.location.reload();
+      if (previewIframe && previewIframe.contentWindow) {
+        try {
+          if (typeof previewIframe.contentWindow.initCustomProfile === 'function') {
+            previewIframe.contentWindow.initCustomProfile();
+          }
+        } catch (err) {
+          console.warn('無法直接呼叫 iframe 更新函式，將使用重載更新：', err);
+        }
+        previewIframe.src = 'card.html?t=' + Date.now();
       }
+
+      // 2. 顯示高質感非阻塞式 Toast 提示
+      showDashboardToast('💾 名片設定儲存成功，已即時同步！', 'fa-solid fa-circle-check');
     });
   }
+}
+
+/**
+ * 4.1 自訂非阻塞式大後台 Toast 提示 (Non-blocking Toast Helper)
+ */
+function showDashboardToast(message, iconClass) {
+  let toastEl = document.getElementById('dashboard-toast');
+  if (!toastEl) {
+    toastEl = document.createElement('div');
+    toastEl.id = 'dashboard-toast';
+    toastEl.className = 'dashboard-toast-container';
+    toastEl.innerHTML = `
+      <div class="dashboard-toast-content">
+        <i class="toast-icon ${iconClass || 'fa-solid fa-circle-check'}"></i>
+        <span class="toast-message"></span>
+      </div>
+    `;
+    document.body.appendChild(toastEl);
+    
+    // 動態注入 Toast 的專屬 CSS 樣式
+    const styleEl = document.createElement('style');
+    styleEl.innerHTML = `
+      .dashboard-toast-container {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background: rgba(18, 18, 20, 0.95);
+        border: 1px solid var(--primary-color);
+        box-shadow: 0 8px 32px rgba(233, 27, 98, 0.3);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 12px 24px;
+        border-radius: var(--border-radius-md);
+        z-index: 9999;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .dashboard-toast-container.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+      .dashboard-toast-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #FFFFFF;
+        font-weight: 600;
+        font-size: 13.5px;
+      }
+      .dashboard-toast-content .toast-icon {
+        color: var(--primary-color);
+        font-size: 16px;
+      }
+      body.dark-theme .dashboard-toast-container {
+        background: rgba(30, 30, 35, 0.95);
+      }
+    `;
+    document.head.appendChild(styleEl);
+  }
+  
+  // 設置內文與圖示
+  const icon = toastEl.querySelector('.toast-icon');
+  if (icon) icon.className = `toast-icon ${iconClass || 'fa-solid fa-circle-check'}`;
+  toastEl.querySelector('.toast-message').textContent = message;
+  
+  // 顯示
+  toastEl.classList.add('show');
+  
+  // 2.5 秒後關閉
+  setTimeout(() => {
+    toastEl.classList.remove('show');
+  }, 2500);
 }
 
 // 載入與計算數據
