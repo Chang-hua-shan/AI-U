@@ -433,8 +433,9 @@ function initFeaturesSettings() {
   const formWechat = document.getElementById('input-card-wechat');
   const formFb = document.getElementById('input-card-fb');
   const formIg = document.getElementById('input-card-ig');
+  const formSheetsUrl = document.getElementById('input-card-sheets-url');
   const settingsForm = document.getElementById('form-features-settings');
-
+ 
   // 載入 localStorage 既存設定或填入預設 Carol 的資訊
   if (formName) formName.value = localStorage.getItem('aiu_card_name') || 'Carol 吳凱若';
   if (formTitle) formTitle.value = localStorage.getItem('aiu_card_title') || 'CEO 執行長';
@@ -445,7 +446,8 @@ function initFeaturesSettings() {
   if (formWechat) formWechat.value = localStorage.getItem('aiu_card_wechat') || 'wcr830';
   if (formFb) formFb.value = localStorage.getItem('aiu_card_fb') || 'https://facebook.com';
   if (formIg) formIg.value = localStorage.getItem('aiu_card_ig') || 'https://instagram.com';
-
+  if (formSheetsUrl) formSheetsUrl.value = localStorage.getItem('aiu_google_sheets_url') || '';
+ 
   if (settingsForm) {
     settingsForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -460,7 +462,8 @@ function initFeaturesSettings() {
       localStorage.setItem('aiu_card_wechat', formWechat.value);
       localStorage.setItem('aiu_card_fb', formFb.value);
       localStorage.setItem('aiu_card_ig', formIg.value);
-
+      localStorage.setItem('aiu_google_sheets_url', formSheetsUrl ? formSheetsUrl.value.trim() : '');
+ 
       // 1. 即時同步更新右側 iframe 畫面（附加時間戳記強制刷新，防快取）
       const previewIframe = document.getElementById('card-preview-iframe');
       if (previewIframe && previewIframe.contentWindow) {
@@ -473,7 +476,7 @@ function initFeaturesSettings() {
         }
         previewIframe.src = 'card.html?t=' + Date.now();
       }
-
+ 
       // 2. 顯示高質感非阻塞式 Toast 提示
       showDashboardToast('💾 名片設定儲存成功，已即時同步！', 'fa-solid fa-circle-check');
     });

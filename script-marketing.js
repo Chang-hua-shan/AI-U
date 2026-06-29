@@ -372,6 +372,30 @@ function initConsultationForm() {
       inquiries.unshift(newInquiry);
       localStorage.setItem('aiu_inquiries', JSON.stringify(inquiries));
 
+      // 串接傳送至 Google Sheets (如果後台設定了試算表 API)
+      const sheetsUrl = localStorage.getItem('aiu_google_sheets_url');
+      if (sheetsUrl) {
+        fetch(sheetsUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: newInquiry.name,
+            phone: newInquiry.phone,
+            email: newInquiry.email,
+            service: newInquiry.service,
+            message: newInquiry.message,
+            source: '官網首頁'
+          })
+        }).then(() => {
+          console.log('官網預約諮詢已成功同步寫入 Google Sheets！');
+        }).catch(err => {
+          console.error('寫入 Google Sheets 失敗：', err);
+        });
+      }
+
       // 輸出主控台紀錄 (方便測試驗證)
       console.log('--- 收到來自官方網站的商務諮詢申請 ---');
       console.log('姓名：', nameInput.value.trim());

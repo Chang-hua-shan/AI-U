@@ -359,6 +359,20 @@
                   </div>
                 </div>
 
+                <!-- Section 4: System Integrations -->
+                <div class="settings-sub-group" style="border-top: 1px solid var(--card-border); padding-top: 16px;">
+                  <h3 style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-link" style="color: var(--primary-color);"></i> 雲端系統整合 (選填)
+                  </h3>
+                  <div class="form-group" style="display: flex; flex-direction: column; gap: 4px;">
+                    <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">Google Sheets 串接網址 (API 部署網址)</label>
+                    <input type="url" id="input-card-sheets-url" class="form-input" style="width: 100%; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--border-radius-md); padding: 8px 10px; color: var(--text-primary); font-size: 13px;" placeholder="https://script.google.com/macros/s/.../exec">
+                    <span style="font-size: 10px; color: var(--text-muted); line-height: 1.4; margin-top: 4px;">
+                      填入 Google Apps Script 的 Web App 部署網址，客戶諮詢留言即可自動同步記錄到雲端試算表。
+                    </span>
+                  </div>
+                </div>
+
                 <!-- Theme and cache settings grouped in settings tab -->
                 <div class="settings-sub-group" style="border-top: 1px solid var(--card-border); padding-top: 16px;">
                   <h3 style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
