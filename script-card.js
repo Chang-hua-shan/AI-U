@@ -429,8 +429,8 @@ function initAdminPanel() {
     if (isAuthed) {
       openAdminPanel();
     } else {
-      const pass = prompt('請輸入管理員密碼：');
-      if (pass === 'aiu888') {
+      const savedPassword = localStorage.getItem('aiu_admin_password') || 'aiu888';
+      if (pass === savedPassword) {
         sessionStorage.setItem('aiu_auth', 'true');
         openAdminPanel();
       } else if (pass !== null) {

@@ -79,8 +79,9 @@ function initLogin() {
 
     // 模擬 1.0 秒驗證延遲
     setTimeout(() => {
-      // 驗證預設帳密 (帳號: admin, 密碼: aiu888)
-      if (username === 'admin' && password === 'aiu888') {
+      // 驗證帳密 (帳號: admin, 密碼支援自訂變數，預設為 aiu888)
+      const savedPassword = localStorage.getItem('aiu_admin_password') || 'aiu888';
+      if (username === 'admin' && password === savedPassword) {
         sessionStorage.setItem('aiu_auth', 'true');
         window.location.href = 'dashboard.html';
       } else {
@@ -372,6 +373,51 @@ function initDashboard() {
 
   // 初始化個性功能設定欄位與即時預約同步
   initFeaturesSettings();
+
+  // 初始化帳號密碼設定表單與驗證
+  initAccountSettings();
+}
+
+/**
+ * 3.5 帳號密碼設定表單與變更驗證 (Admin Password Configuration Form)
+ */
+function initAccountSettings() {
+  const currentPassEl = document.getElementById('input-current-pass');
+  const accountForm = document.getElementById('form-account-settings');
+  const inputNewPass = document.getElementById('input-new-pass');
+  const inputConfirmPass = document.getElementById('input-confirm-pass');
+
+  // 初始化載入當前密碼顯示
+  if (currentPassEl) {
+    currentPassEl.value = localStorage.getItem('aiu_admin_password') || 'aiu888';
+  }
+
+  if (accountForm) {
+    accountForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      if (!inputNewPass || !inputConfirmPass) return;
+
+      if (inputNewPass.value !== inputConfirmPass.value) {
+        showDashboardToast('❌ 兩次輸入的新密碼不一致！', 'fa-solid fa-circle-xmark');
+        return;
+      }
+
+      // 儲存至 localStorage
+      localStorage.setItem('aiu_admin_password', inputNewPass.value);
+
+      // 同步更新當前密碼欄位顯示
+      if (currentPassEl) {
+        currentPassEl.value = inputNewPass.value;
+      }
+
+      // 清空輸入欄位
+      inputNewPass.value = '';
+      inputConfirmPass.value = '';
+
+      showDashboardToast('🔑 密碼修改成功！新密碼已即時套用。', 'fa-solid fa-key');
+    });
+  }
 }
 
 /**
