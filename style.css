@@ -87,7 +87,7 @@ body.light-theme {
   -webkit-tap-highlight-color: transparent; /* Remove mobile highlight flash */
 }
 
-html, body {
+html {
   overscroll-behavior: none;
   overscroll-behavior-y: none;
 }

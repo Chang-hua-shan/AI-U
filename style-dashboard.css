@@ -87,14 +87,17 @@ body.dark-theme .chart-grid-line {
   -webkit-tap-highlight-color: transparent;
 }
 
+html {
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+}
+
 html, body {
   overflow-x: hidden;
   width: 100%;
   max-width: 100%;
   margin: 0;
   padding: 0;
-  overscroll-behavior: none;
-  overscroll-behavior-y: none;
 }
 
 body {
